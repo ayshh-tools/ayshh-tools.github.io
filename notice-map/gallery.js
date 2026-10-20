@@ -32,7 +32,19 @@ function renderGallery(images) {
  if (images.length) showPhoto(0);
 }
 
-function showPhoto(i){if(!galleryImages.length)return;photoIndex=(i+galleryImages.length)%galleryImages.length;const image=galleryImages[photoIndex];$('gallery-image').src=image.src;$('gallery-image').alt=image.alt;$('gallery-count').textContent=`${photoIndex+1} / ${galleryImages.length}`;const tabs=$('gallery-tabs');Array.from(tabs.children).forEach((button,index)=>selectPhotoButton(button,index===photoIndex));revealPhotoTab(tabs,tabs.children[photoIndex]);}
+function showPhoto(index) {
+ if(!galleryImages.length)return;
+ photoIndex=(index+galleryImages.length)%galleryImages.length;
+ const image=galleryImages[photoIndex],tabs=$('gallery-tabs');
+ $('gallery-image').src=image.src;
+ $('gallery-image').alt=image.alt;
+ $('gallery-count').textContent=`${photoIndex+1} / ${galleryImages.length}`;
+ Array.from(tabs.children).forEach((button,index)=>selectPhotoButton(button,index===photoIndex));
+ revealPhotoTab(tabs,tabs.children[photoIndex]);
+ const track=$('legacy-photo-track');
+ if(track)track.style.transform=`translateX(-${photoIndex*100}%)`;
+ $('legacy-photo-dots')?.querySelectorAll?.('button').forEach((dot,index)=>selectPhotoButton(dot,index===photoIndex));
+}
 
 let lightboxIndex=0,photoScale=1,photoX=0,photoY=0,photoDrag=null,photoFocus=null;
 const photoPointers=new Map();

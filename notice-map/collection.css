@@ -10,12 +10,12 @@
 
 .collection-detail-actions{margin:12px 0}.detail-heading{flex-wrap:wrap}.detail-heading>.collection-detail-actions{order:5;width:100%}
 #collection-modal{box-sizing:border-box;width:1000px;max-width:calc(100vw - 24px);max-height:85dvh;padding:24px;border:1px solid var(--appearance-line);border-radius:4px;background:var(--appearance-bg);color:var(--appearance-text);overflow:auto;box-shadow:0 8px 24px #0003}
-#collection-modal::backdrop{background:#101b2c99}.collection-heading{display:flex;justify-content:space-between;gap:12px}.collection-heading h2{font-size:23px;margin:0 0 8px}.collection-heading p,.collection-storage,.collection-hint{font-size:13px;color:var(--appearance-muted);line-height:1.7}.collection-heading button{align-self:flex-start;border:0;border-radius:4px;width:38px;height:38px;background:var(--appearance-surface);color:var(--appearance-text);cursor:pointer}
+#collection-modal::backdrop{background:#101b2c99}.collection-heading{display:flex;justify-content:space-between;gap:12px}.collection-heading h2{font-size:23px;margin:0 0 8px}.collection-heading p,.collection-storage,.collection-hint{font-size:13px;color:var(--appearance-muted);line-height:1.7}.collection-heading button{align-self:flex-start;border:0;border-radius:4px;flex-shrink:0;width:44px;height:44px;background:var(--appearance-surface);color:var(--appearance-text);cursor:pointer}
 .collection-tabs{display:flex;gap:8px;border-bottom:1px solid var(--appearance-line);margin-top:20px}.collection-tabs button{font:inherit;padding:13px 9px;border:0;border-bottom:3px solid transparent;background:transparent;color:var(--appearance-muted);cursor:pointer}.collection-tabs button[aria-pressed=true]{border-color:var(--appearance-accent);color:var(--appearance-accent);font-weight:700}.collection-tabs b{font-size:12px;margin-left:4px}
 .collection-list{list-style:none;padding:0;margin:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.collection-list li{border:1px solid var(--appearance-line);border-radius:4px;padding:18px}.collection-list small{color:var(--appearance-muted)}.collection-list a{display:block;font-weight:700;line-height:1.6;margin:10px 0 16px;color:var(--appearance-text)}.collection-tools{text-align:right;margin-bottom:12px}.collection-remove{margin-top:10px}.collection-empty{text-align:center;padding:50px 10px}.collection-empty strong{font-size:20px}.collection-empty p{color:var(--appearance-muted);line-height:1.7}.collection-empty-links{display:flex;flex-wrap:wrap;justify-content:center;gap:8px 24px;margin-top:18px}.collection-empty-links a{display:inline-flex;align-items:center;min-height:44px;color:var(--appearance-accent);text-decoration:underline;text-underline-offset:4px}
-.collection-table-wrap{overflow:auto}.collection-table{border-collapse:separate;border-spacing:0;width:100%;font-size:14px;line-height:1.6}.collection-table caption{text-align:left;padding:8px 0;color:var(--appearance-muted)}.collection-table th,.collection-table td{padding:16px;border-right:1px solid var(--appearance-line);border-bottom:1px solid var(--appearance-line);min-width:220px;max-width:300px;white-space:pre-wrap;vertical-align:top;overflow-wrap:anywhere}.collection-table th:first-child{min-width:110px;position:sticky;left:0;background:var(--appearance-surface)}.collection-table thead th{background:var(--appearance-surface);text-align:left}.collection-table a{color:var(--appearance-accent)}.collection-table button{display:block;margin-top:12px}.collection-status:empty{display:none}.collection-status{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);width:max-content;max-width:calc(100vw - 32px);padding:14px 20px;background:var(--appearance-text);color:var(--appearance-bg);border-radius:4px;z-index:1500;box-shadow:0 4px 20px #0003}
+.collection-table-wrap{overflow:auto}.collection-table{border-collapse:separate;border-spacing:0;width:100%;font-size:14px;line-height:1.6}.collection-table caption{text-align:left;padding:8px 0;color:var(--appearance-muted)}.collection-table th,.collection-table td{padding:16px;border-right:1px solid var(--appearance-line);border-bottom:1px solid var(--appearance-line);white-space:pre-wrap;vertical-align:top;overflow-wrap:anywhere}.collection-table th:first-child{background:var(--appearance-surface)}.collection-table thead th{background:var(--appearance-surface);text-align:left}.collection-table a{color:var(--appearance-accent)}.collection-table button{display:block;margin-top:12px}.collection-status:empty{display:none}.collection-status{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);width:max-content;max-width:calc(100vw - 32px);padding:14px 20px;background:var(--appearance-text);color:var(--appearance-bg);border-radius:4px;z-index:1500;box-shadow:0 4px 20px #0003}
 #collection-modal button:focus-visible,.collection-actions button:focus-visible,.collection-shortcut:focus-visible{outline:3px solid var(--appearance-accent);outline-offset:2px}
-@media(max-width:600px){#collection-modal{padding:18px 14px;max-height:90dvh}.collection-heading h2{font-size:20px}.collection-list{grid-template-columns:1fr}.collection-tabs button{font-size:13px;padding:12px 6px}.header-actions .collection-shortcut{font-size:11px;padding:7px}.collection-table th,.collection-table td{min-width:200px;padding:12px}.collection-table th:first-child{min-width:84px}.collection-heading p{margin:0}.collection-detail-actions{margin:8px 0}}
+@media(max-width:600px){#collection-modal{padding:18px 14px;max-height:90dvh}.collection-heading h2{font-size:20px}.collection-list{grid-template-columns:1fr}.collection-tabs button{font-size:13px;padding:12px 6px}.header-actions .collection-shortcut{font-size:11px;padding:7px}.collection-heading p{margin:0}.collection-detail-actions{margin:8px 0}}
 
 .collection-house-photo{display:block;width:100%;height:150px;object-fit:cover;border-radius:4px;margin-bottom:12px}.collection-house-summary{font-size:12px;line-height:1.6;color:var(--appearance-muted);margin:0 0 14px}
 
@@ -25,7 +25,7 @@
 .collection-card-meta .collection-remove{flex-shrink:0;min-height:44px;margin:0;padding:8px;border-color:transparent;background:transparent;color:var(--appearance-muted);font-size:12px;text-decoration:underline;text-underline-offset:3px}
 .collection-remove:hover{color:var(--appearance-text);background:var(--appearance-surface)}
 .collection-actions button,.collection-tools button,.collection-table button{min-height:44px}
-.collection-heading button{flex-shrink:0;width:44px;height:44px}
+
 .collection-list li{min-width:0;overflow-wrap:anywhere}
 #menu{box-sizing:border-box;overscroll-behavior:contain;overflow-x:hidden;scroll-padding-block:12px}
 @media(max-width:600px){
@@ -59,7 +59,7 @@
 
 body:has(#collection-modal[open]){overflow:hidden}
 #collection-modal{overscroll-behavior:contain}
-#collection-modal .collection-heading>[data-close]{flex-shrink:0;width:44px;height:44px}
+
 #collection-modal .collection-storage{padding:10px 12px;border:1px solid var(--appearance-line);border-radius:4px;background:var(--appearance-surface)}
 
 /* Stretch each row evenly and anchor actions below variable-length content. */
@@ -78,3 +78,35 @@ body:has(#collection-modal[open]){overflow:hidden}
 
 /* A single selected home fits without an unnecessary horizontal scroll. */
 @media(max-width:600px){.collection-table.collection-table-single{width:100%}.collection-table-single .comparison-label-column{width:84px}}
+
+/* Collection actions and comparison details share this component owner. */
+.collection-table tbody td{line-height:1.7}
+.collection-table thead th:first-child{text-align:center;vertical-align:middle}
+:root body[data-view] :is(.collection-table button[data-remove],.collection-card-meta .collection-remove){width:44px;height:44px;min-width:44px;padding:0;font-size:24px;line-height:1}
+:root body[data-view] .collection-actions button[aria-pressed=true]{background:var(--appearance-input);color:var(--appearance-accent);border-color:var(--appearance-accent)}
+:root body[data-view] .collection-empty-links{gap:12px}
+/* Keep per-card removal above the photo and separate from housing details. */
+.collection-list>li:has(.collection-remove){position:relative;padding-top:62px}
+
+/* Comparison removal belongs above each title, without a button frame. */
+.collection-table thead th:not(:first-child){position:relative;padding-top:60px}
+:root body[data-view] :is(.collection-table button[data-remove],.collection-card-meta .collection-remove){position:absolute;top:8px;right:8px;margin:0;border:0;background:transparent;color:var(--appearance-muted);text-decoration:none}
+:root body[data-view] :is(.collection-table button[data-remove],.collection-card-meta .collection-remove):hover{border:0;background:var(--appearance-hover);color:var(--appearance-accent)}
+
+/* Compare amounts vertically so labels and numbers remain readable on phones. */
+.comparison-price{white-space:normal;padding:10px 0;border-bottom:1px solid var(--appearance-line)}
+.comparison-price:first-child{padding-top:0}.comparison-price:last-child{padding-bottom:0;border-bottom:0}
+.comparison-price>strong{display:block;font-size:12px;line-height:1.5;margin-bottom:6px;color:var(--appearance-muted);font-weight:500}
+.comparison-price dl{margin:0}.comparison-price dl>div{display:flex;flex-wrap:wrap;justify-content:space-between;gap:2px 8px;margin-top:4px}
+.comparison-price dt{font-size:12px;color:var(--appearance-muted)}.comparison-price dd{margin:0;white-space:nowrap;font-variant-numeric:tabular-nums;font-weight:600}
+@media(max-width:600px){
+ .collection-table{font-size:13px;line-height:1.6}
+ .collection-table :is(th,td){padding:12px 10px;white-space:normal;word-break:keep-all;overflow-wrap:anywhere}
+ .collection-table tbody th{font-size:12px;font-weight:600;vertical-align:middle;text-align:center}
+ .collection-table thead th:not(:first-child){padding:52px 10px 14px;vertical-align:top}
+ .collection-table thead a{display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;font-size:14px;line-height:1.5;word-break:keep-all}
+ .collection-table caption{font-size:12px;padding:0 0 10px}
+ .comparison-price dd{font-size:13px}
+}
+
+@media(max-width:600px){.collection-empty{padding:28px 4px}.collection-empty strong{font-size:18px;line-height:1.5}.collection-empty p{margin:10px 0;line-height:1.6}.collection-empty-links{margin-top:16px}}

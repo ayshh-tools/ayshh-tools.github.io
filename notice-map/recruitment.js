@@ -44,6 +44,6 @@ if(typeof document!=='undefined'){
   }
  }
  toolbar.addEventListener('click',e=>{const button=e.target.closest('button[data-status]');if(!button)return;selected=button.dataset.status;try{sessionStorage.setItem('ayshh-notice-map-recruitment',selected);}catch{}refresh();});
- const previousRoute=route;route=function(){previousRoute();refresh();};
+ NoticeLifecycle.afterRender(refresh);
  refresh();setInterval(refresh,30000);document.addEventListener('visibilitychange',()=>{if(!document.hidden)refresh();});
 }

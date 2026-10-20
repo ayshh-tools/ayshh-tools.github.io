@@ -66,7 +66,7 @@
     if(path&&records.has(path)){
       const list=state[save?'saved':'compare'],index=list.indexOf(path);
       if(index>=0)list.splice(index,1);else{if(compare&&list.length===4){announce('최대 4개까지 비교할 수 있어요. 비교하기에서 항목을 빼주세요.');return;}list.unshift(path);}
-      persist();announce(index>=0?'목록에서 뺐습니다.':save?'관심 주택에 저장했습니다.':'비교에 담았습니다. 메뉴의 비교하기에서 확인하세요.');
+      persist();
       if(dialog.open)(dialog.querySelector(`[data-${save?'save':'compare'}="${path}"]`)||dialog.querySelector(`[data-tab="${active}"]`))?.focus();
     }
     if(dialog.contains(b)&&b.dataset.remove){state[active]=state[active].filter(p=>p!==b.dataset.remove);persist();dialog.querySelector(`[data-tab="${active}"]`).focus();}

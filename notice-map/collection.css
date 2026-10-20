@@ -64,3 +64,11 @@ body:has(#collection-modal[open]){overflow:hidden}
 .collection-list>li>.collection-house-photo{flex-shrink:0}
 .collection-list>li>.collection-actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:auto}
 .collection-list>li>.collection-actions button{min-width:0}
+
+/* One horizontal scroller owns the entire comparison table on every device. */
+.collection-table-wrap{width:100%;min-width:0;overflow-x:auto;overscroll-behavior-x:contain;-webkit-overflow-scrolling:touch}
+.collection-table{table-layout:fixed;width:calc(112px + var(--compare-columns,1)*224px);min-width:100%}
+.collection-table .comparison-label-column{width:112px}
+.collection-table th,.collection-table td{min-width:0;max-width:none}
+.collection-table th:first-child{position:static;left:auto;min-width:0}
+@media(max-width:600px){.collection-table{width:calc(96px + var(--compare-columns,1)*208px)}.collection-table .comparison-label-column{width:96px}.collection-table th:first-child{min-width:0}}

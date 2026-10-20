@@ -55,3 +55,19 @@ body[data-view=unit] #unit-prices{overflow:visible;min-width:0}
 body[data-view=unit] .price-table-scroll .price-table{min-width:calc(var(--price-columns,3)*120px);table-layout:auto;margin:0}
 body[data-view=unit] .price-table-scroll :is(th,td){overflow-wrap:normal;word-break:keep-all}
 .collection-table tbody td{line-height:1.7}
+
+/* Compare amounts vertically so labels and numbers remain readable on phones. */
+.comparison-price{white-space:normal;padding:10px 0;border-bottom:1px solid var(--appearance-line)}
+.comparison-price:first-child{padding-top:0}.comparison-price:last-child{padding-bottom:0;border-bottom:0}
+.comparison-price>strong{display:block;font-size:12px;line-height:1.5;margin-bottom:6px;color:var(--appearance-muted);font-weight:500}
+.comparison-price dl{margin:0}.comparison-price dl>div{display:flex;flex-wrap:wrap;justify-content:space-between;gap:2px 8px;margin-top:4px}
+.comparison-price dt{font-size:12px;color:var(--appearance-muted)}.comparison-price dd{margin:0;white-space:nowrap;font-variant-numeric:tabular-nums;font-weight:600}
+@media(max-width:600px){
+ .collection-table{font-size:13px;line-height:1.6}
+ .collection-table :is(th,td){padding:12px 10px;white-space:normal;word-break:keep-all;overflow-wrap:anywhere}
+ .collection-table tbody th{font-size:12px;font-weight:600;vertical-align:middle;text-align:center}
+ .collection-table thead th:not(:first-child){padding:52px 10px 14px;vertical-align:top}
+ .collection-table thead a{display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;font-size:14px;line-height:1.5;word-break:keep-all}
+ .collection-table caption{font-size:12px;padding:0 0 10px}
+ .comparison-price dd{font-size:13px}
+}

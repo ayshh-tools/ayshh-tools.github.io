@@ -1,3 +1,13 @@
+/* Header controls use the same visible height and touch area at every width. */
+.header .header-actions{top:50%;transform:translateY(-50%);align-items:center;gap:10px}
+.header .header-actions>button:is(#calculator-open,#menu-toggle,.account-button){
+ box-sizing:border-box;min-width:44px;height:44px;min-height:44px;padding:0 14px;font-size:14px;line-height:1.25;white-space:nowrap;flex-shrink:0;
+}
+.header .header-actions>button:is(#calculator-open,#menu-toggle){width:44px;padding:0;margin-left:0;top:0}
+.header .header-actions>button#calculator-open{font-size:18px}
+.header .header-actions #menu-toggle::before{inset:0}
+@media(max-width:767px){.header .header-actions{gap:8px}}
+
 /* Action controls share a visible boundary and a comfortable hit area. */
 :root body[data-view] :is(.detail-bottom a,.collection-empty-links a,.collection-actions button,.collection-tools button,.collection-table button,.collection-card-meta .collection-remove,.pwa-card button){
  display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;max-width:100%;padding:10px 16px;border:1px solid var(--appearance-control);border-radius:4px;background:var(--appearance-input);color:var(--appearance-text);font:inherit;font-size:14px;font-weight:600;line-height:1.5;text-align:center;text-decoration:none;white-space:normal;overflow-wrap:anywhere;cursor:pointer;box-shadow:none;

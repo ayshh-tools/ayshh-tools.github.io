@@ -1,0 +1,78 @@
+/* Measured from the private listing and /plan/141 at desktop and 390px. */
+#private-search{height:43px;appearance:none}
+body[data-view=private-unit] .unit-top h1{float:left;max-width:100%;font-size:34px;line-height:40px;color:#666}
+body[data-view=private-unit] .unit-top #unit-back{float:right;width:42.40625px;height:44px;line-height:44px;font-size:22.4px;font-weight:700;padding:0 10px;color:#bababa;margin-right:-2.40625px}
+body[data-view=private-unit] .unit-top{display:flow-root;min-height:85px;padding:20px 0}
+body[data-view=private-unit] .unit-content{padding-bottom:20px}
+.private-facts .care{background:#f1f1f1;border-radius:3px}
+.private-facts .ca{display:inline-block;letter-spacing:-.5px}
+.private-facts .infos>div{display:block}
+.private-facts .infos span{font-size:1.2em;letter-spacing:-1px;color:#178feb}
+body[data-view=private-unit] #unit-map{height:400px}
+body[data-view=private-unit] .gallery-tabs button{font-weight:600}
+body[data-view=private-unit] .gallery-tabs button.active{font-weight:800}
+body[data-view=private-unit] .gallery{position:relative;box-shadow:none}
+body[data-view=private-unit] .gallery-tabs{overflow-x:hidden;flex-shrink:0}
+body[data-view=private-unit] .gallery-tabs button{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#6b7280;transition:.18s ease}
+body[data-view=private-unit] .gallery-tabs button:hover{background:#f8fbff;color:#3182f6}
+body[data-view=private-unit] .gallery-tabs button.active{background:#eaf3ff;color:#1d64d8}
+body[data-view=private-unit] .gallery-view{overflow:hidden;background:var(--appearance-surface,#f4f7fb)}
+body[data-view=private-unit] .gallery-view button{background:rgba(255,255,255,.82);color:#111827;box-shadow:none;backdrop-filter:none}
+body[data-view=private-unit] #gallery-count{background:rgba(17,24,39,.62);backdrop-filter:none}
+body[data-view=private-unit] .gallery ::-webkit-scrollbar{width:8px;height:8px}
+body[data-view=private-unit] .gallery ::-webkit-scrollbar-track{background:transparent;border-radius:4px}
+body[data-view=private-unit] .gallery ::-webkit-scrollbar-thumb{background:rgba(15,23,42,.14);border-radius:4px;border:2px solid transparent;background-clip:padding-box}
+body[data-view=private-unit] .gallery ::-webkit-scrollbar-thumb:hover{background:rgba(15,23,42,.26);background-clip:padding-box}
+body[data-view=private-unit] #private-related{padding:0;border:0;margin:15px 0 0}
+#private-related h2{position:absolute;width:0;height:0;margin:0;padding:0;font-size:0;overflow:hidden}
+.private-related-row{position:relative;border:1px solid #e9e9e9;padding:15px;margin:10px 0;min-height:51px}
+.private-related-row>.fa{float:left;line-height:19px;color:#b2b2b2;margin-right:10px}
+#private-related .private-related-row a{font-size:16px;line-height:19px;color:#333;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+@media(max-width:767px){#private-search{height:39px}}
+@media(max-width:500px){
+ body[data-view=private-unit] .unit-top,body[data-view=private-unit] .unit-content{width:calc(100% - 20px)}
+ body[data-view=private-unit] .unit-top{min-height:45px;padding:0}
+ body[data-view=private-unit] .unit-top h1{font-size:20px;line-height:24px;margin:10px 0}
+ .private-facts .care{font-size:11px;padding:5px 10px}
+ body[data-view=private-unit] #unit-map{height:240px}
+ .private-related-row{padding:7px;min-height:35px}
+ .private-related-row>.fa{display:none}
+ #private-related .private-related-row a{font-size:13px;line-height:19px}
+}
+
+/* Let long names and links wrap, while preserving space for the map button. */
+body[data-view=private-unit] .unit-top{display:flex;gap:16px;align-items:flex-start}
+body[data-view=private-unit] .unit-top h1{float:none;min-width:0;overflow-wrap:anywhere}
+body[data-view=private-unit] .unit-top #unit-back{float:none;flex-shrink:0;margin:0;min-width:44px}
+.private-facts{overflow-wrap:anywhere}
+.private-address{font-size:13px;line-height:1.6;color:var(--appearance-muted,#596779)}
+.private-popup small{font-size:13px;line-height:1.5;margin-top:6px}
+.private-popup a{min-height:44px;display:inline-flex;align-items:center;font-size:14px;padding:10px 14px}
+#private-rows .private-item{min-height:44px;padding-right:16px;white-space:normal;word-break:keep-all;overflow-wrap:anywhere;line-height:1.5}
+
+#private-rows .private-item.active{background:var(--appearance-selected,#eaf3ff);color:var(--appearance-text,#17345d);box-shadow:inset 4px 0 var(--appearance-accent,#3182f6)}
+
+.private-item.active .private-address,.private-item:hover .private-address{color:inherit}
+#private-related .private-related-row a{white-space:normal;overflow:visible;line-height:1.6}
+@media(max-width:767px){
+ body[data-view=private-unit] main{padding-top:calc(var(--site-header-height,92px) + 24px)}
+ body[data-view=private] .private-layout{height:100%;height:100dvh;display:grid;grid-template-rows:auto minmax(0,1fr) minmax(0,45%);padding-top:var(--site-header-height,92px);overflow:hidden}
+ #private-filters{position:static;width:100%;display:flex;gap:8px;padding:10px 12px;background:#f8f8f8}
+ #private-filters select{flex:0 0 100px;width:100px;min-width:0;margin:0;height:40px;padding:8px}
+ #private-search{float:none;flex:1;min-width:0;width:0;height:40px;font-size:16px;padding:8px}
+ #private-rows{min-height:0;height:auto;width:100%;padding:0 12px 8px;border-bottom:0}
+ #private-map{min-height:0;height:100%;width:100%}
+ #private-rows .private-item{padding:12px 16px;white-space:normal;overflow-wrap:anywhere;line-height:1.5}
+ .private-address{display:block;line-height:1.5;margin-top:4px}
+ body[data-view=private-unit] .unit-top,body[data-view=private-unit] .unit-content{width:calc(100% - 32px)}
+ body[data-view=private-unit] .unit-top{padding:0 0 16px;min-height:0}
+ body[data-view=private-unit] .unit-top h1{font-size:22px;line-height:1.45;margin:0}
+ body[data-view=private-unit] .gallery{display:flex;flex-direction:column;height:auto;margin:20px auto}
+ body[data-view=private-unit] .gallery-tabs{width:100%;height:auto;max-height:120px;border-right:0;border-bottom:1px solid #eee;flex:none}
+ body[data-view=private-unit] .gallery-tabs button{min-height:40px;font-size:13px;white-space:normal;overflow-wrap:anywhere}
+ body[data-view=private-unit] .gallery-view{flex:none;height:280px}
+ .private-facts .care{font-size:13px;padding:12px;line-height:1.7}
+ .private-related-row{padding:12px;margin:8px 0}
+ #private-related .private-related-row a{font-size:14px}
+}
+@media(max-width:600px){body[data-view=private] .private-layout{padding-top:var(--site-header-height,88px)}}

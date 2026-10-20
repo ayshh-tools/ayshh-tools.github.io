@@ -1,0 +1,1 @@
+self.addEventListener('install',e=>self.skipWaiting());self.addEventListener('activate',e=>e.waitUntil(self.clients.claim()));self.addEventListener('fetch',e=>{if(e.request.mode==='navigate')e.respondWith(fetch(e.request).catch(()=>new Response('인터넷 연결 후 다시 열어주세요.',{headers:{'Content-Type':'text/plain;charset=utf-8'}})));});

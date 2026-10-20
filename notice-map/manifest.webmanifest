@@ -1,0 +1,25 @@
+{
+  "id": "/content/map/",
+  "name": "아영이네 공고지도",
+  "short_name": "공고지도",
+  "lang": "ko",
+  "start_url": "/content/map/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#ffe235",
+  "icons": [
+    {
+      "src": "/notice-map/assets/pwa-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/notice-map/assets/pwa-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

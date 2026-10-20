@@ -1,0 +1,159 @@
+/* Public housing measurements from the source, 2026-10-19. */
+.public-map-back{display:none}
+body[data-view=map] .building .place.active{background:var(--appearance-selected);color:var(--appearance-accent);border-color:var(--appearance-accent);box-shadow:inset 3px 0 var(--appearance-accent)}
+body[data-view=map] .building .place:hover{background:var(--appearance-hover);color:var(--appearance-accent);border-color:var(--appearance-accent)}
+body[data-view=map] .public-scroll{min-height:0;flex:1;padding:10px 20px;overflow-y:scroll;border-right:1px solid #ddd}
+body[data-view=map] .public-scroll .list-meta{margin:0 0 5px}
+body[data-view=map] .public-scroll .places{padding:0;overflow:visible}
+body[data-view=map] .public-scroll::-webkit-scrollbar{width:6px}
+body[data-view=map] .public-scroll::-webkit-scrollbar-thumb{background:#0003;border-radius:10px;border:1px solid #f3f7ff}
+body[data-view=map] .unit-list{padding:0;margin-top:5px;background:#fafafa;border-radius:0}
+body[data-view=map] .unit-list a{display:block;height:50px;padding:15px 22px;background:transparent;border:0;border-bottom:1px solid #eee;font-size:16px;line-height:19px;color:#111}
+body[data-view=map] .unit-list a:hover{background:#f0f0f0;color:#111}
+body[data-view=map] .unit-list a.filtered-unit{opacity:.4;text-decoration:line-through}
+body[data-view=map] .single-unit .unit-list{display:none!important}
+body[data-view=map] .leaflet-popup-content-wrapper{padding:0;border-radius:8px}
+body[data-view=map] .leaflet-popup-content{margin:0;width:420px!important;min-width:0;padding:16px 7px;text-align:center;font-family:Pretendard,sans-serif;line-height:normal;overflow-wrap:anywhere;word-break:keep-all}
+body[data-view=map] .leaflet-popup-close-button{display:none}
+body[data-view=map] .popup-title{font-size:15px;font-weight:600}
+body[data-view=map] .popup-detail{display:inline-block;background:#2c7be5;color:#fff;padding:6px 12px;margin-top:10px;border-radius:6px;font-size:13px;text-decoration:none}
+body[data-view=unit] .unit-top h1{font-size:26px;line-height:31px}
+body[data-view=unit] .unit-top{padding-bottom:15px}
+#unit-type-cards ul{margin:10px 0 0;padding:0;list-style:none}
+#unit-type-cards ul::after{content:'';display:block;clear:both}
+#unit-type-cards li{float:left;width:20%;margin:0}
+#unit-type-cards a{display:block;text-align:center;padding:20px 0;background:#fafafa;transition:.5s;border-radius:3px;border:1px solid #f1f1f1;margin:0 4px;font-size:16px;line-height:normal}
+#unit-type-cards li.now a,#unit-type-cards a:hover{border-color:#3182f6}
+#unit-type-cards span{display:block;margin-bottom:5px;width:100%;padding:0 10px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#unit-type-cards .str{font-size:1.5em;font-weight:700}
+#unit-type-cards li.now .str,#unit-type-cards a:hover .str{color:#3182f6}
+body[data-view=unit] .unit-facts{margin:30px 0 20px}
+body[data-view=unit] .price-table th{padding:14px 12px;background:#f9fafb;font-weight:600;border-bottom:2px solid #222}
+body[data-view=unit] .price-table td{padding:12px}
+body[data-view=unit] .price-table .loan-cta{font-size:11px;line-height:27.2px;padding:2px 15px 1px 10px}
+body[data-view=unit] .legacy-gallery{display:block;position:relative;width:400px;height:200px;margin:20px auto 0;overflow:hidden;border:0;border-radius:0;background:transparent;box-shadow:none}
+.legacy-gallery #gallery-tabs,.legacy-gallery #gallery-count,.legacy-gallery #gallery-image{display:none}
+.legacy-gallery .gallery-view{width:100%;height:100%;overflow:hidden}
+.legacy-gallery .bo-img-slider-track{display:flex;height:100%;transition:transform .4s}
+.legacy-gallery .bo-img-slider-track a{min-width:100%;height:100%}
+.legacy-gallery .bo-img-slider-track img{display:block;width:100%;max-width:100%;height:auto;object-fit:contain;margin-bottom:20px}
+.legacy-gallery #gallery-prev,.legacy-gallery #gallery-next{top:50%;transform:translateY(-50%);width:auto;height:auto;background:rgba(0,0,0,.5);color:#fff;border:0;border-radius:0;padding:8px 12px;font-size:16px;z-index:10;box-shadow:none}
+.legacy-gallery #gallery-prev{left:5px}.legacy-gallery #gallery-next{right:5px}
+.legacy-gallery .bo-img-dots{position:absolute;bottom:10px;width:100%;text-align:center}
+.legacy-gallery .bo-img-dots button{position:static;inset:auto;transform:none;display:inline-grid;place-items:center;flex:0 0 44px;width:44px;height:44px;margin:0;padding:0;border:0;border-radius:0;background:transparent;box-shadow:none;backdrop-filter:none;font-size:0;line-height:1;cursor:pointer}
+.legacy-gallery .bo-img-dots button::before{content:'';width:8px;height:8px;background:rgba(255,255,255,.65);border:1px solid #666;border-radius:50%;box-shadow:0 1px 3px #0007}
+.legacy-gallery .bo-img-dots button.active::before{width:12px;height:12px;background:#fff;border:2px solid #3182f6}
+.legacy-gallery .bo-img-dots{bottom:0;display:flex;justify-content:safe center;max-width:100%;overflow-x:auto}
+@media(max-width:480px){body[data-view=unit] .legacy-gallery{width:100%;height:50vw;max-height:400px}}
+.notice-downloads{margin:10px 0 40px;font-size:16px;line-height:27.2px}
+.notice-downloads ul{margin:16px 0;padding:0;list-style:none}
+.notice-downloads a{display:inline-block;background:#d9d9d9;font-weight:300;margin:0 0 6px;padding:5px 20px;border-radius:2px;overflow-wrap:anywhere}
+#public-alarm{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);z-index:9999}
+#public-alarm>button,#public-alarm>.alarm-ended{display:flex;flex-direction:column;align-items:center;gap:2px;padding:15px 40px 15px 35px;border-radius:4px;border:0;font-size:15px;font-weight:700;background:#ffe235;color:#191919;box-shadow:none;position:relative;overflow:hidden;line-height:25px}
+#public-alarm>.alarm-ended{background:#e0e0e0;color:#888;box-shadow:none;line-height:18px;cursor:default}
+#public-alarm-overlay{position:fixed;inset:0;background:#00000073;z-index:10000;display:flex;align-items:flex-end;justify-content:center}
+#public-alarm-modal{width:100%;max-width:420px;background:#fff;border-radius:4px 4px 0 0;padding:28px 24px 32px;letter-spacing:normal}
+#public-alarm-modal .modal-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:4px}
+#public-alarm-modal h3{font-size:18px;font-weight:700;margin:0}
+#public-alarm-modal .close-btn{background:none;border:0;font-size:20px;color:#999;cursor:pointer;padding:4px}
+#public-alarm-modal .desc{font-size:13px;color:#888;margin:0 0 12px}
+#public-alarm-modal .quota-box{display:flex;justify-content:space-between;align-items:center;padding:10px 14px;background:#fffbea;border:1px solid #ffe58f;border-radius:4px;margin-bottom:16px;font-size:13px}
+#public-alarm-modal .quota-num{font-weight:700;color:#b8860b}
+#public-alarm-modal .phone-box{display:flex;align-items:center;gap:10px;padding:14px 16px;background:#f7f7f7;border-radius:4px;margin-bottom:20px}
+#public-alarm-modal .phone-box .num{font-size:16px;font-weight:700}
+#public-alarm-modal .phone-box .label{font-size:12px;color:#999}
+#public-alarm-modal .alarm-note{font-size:12px;color:#aaa;margin:-12px 0 16px;line-height:1.5}
+#public-alarm-modal .alarm-submit{width:100%;padding:14px;border:0;border-radius:4px;background:#fee500;color:#191919;font-size:15px;font-weight:700;cursor:default;opacity:1}
+@media(min-width:480px){#public-alarm-overlay{align-items:center}#public-alarm-modal{border-radius:4px}}
+@media(max-width:500px){#public-alarm{bottom:5px}#public-alarm>button,#public-alarm>.alarm-ended{text-align:center;padding:10px 25px;font-size:12px}}
+@media(max-width:500px){
+ #unit-type-cards li{width:100%;margin:4px 0}
+ #unit-type-cards a{padding:10px 5px;font-size:13px;text-align:left}
+ #unit-type-cards span{letter-spacing:-.5px}
+ #unit-type-cards span:not(.str){display:inline-block}
+ body[data-view=unit] .price-table tbody td{font-size:10px;letter-spacing:-.5px}
+}
+@media(max-width:767px){
+ body[data-view=map] .header,body[data-view=map] #ft{display:none}
+ body[data-view=map] .detail-heading{position:fixed;top:10px;left:0;width:100%;padding:4px 0 10px;z-index:999}
+ body[data-view=map] .detail-heading h1{font-size:14px!important;margin:5px 0 0}
+ body[data-view=map] .public-map-back{display:block;position:absolute;left:5px;top:0;color:#aaa;font-size:40px;font-weight:100;padding:0}
+ body[data-view=map] .badges>.back-badge,body[data-view=map] .badges>span{font-size:11px;line-height:13px;padding:3px 8px}
+ body[data-view=map] .map-layout{display:block;position:fixed;bottom:0;left:0;width:100%;height:calc(100% - 80px);overflow:hidden}
+ body[data-view=map] .sidebar{display:block;max-height:none;height:305px;border:0}
+ body[data-view=map] .public-scroll{height:200px;padding:5px 3px;flex:none}
+ body[data-view=map] #filters{height:105px;padding:10px}
+ body[data-view=map] .filter-row{margin-bottom:2px}
+ body[data-view=map] .filter-row select{height:27px;padding:5px 10px;font-size:11px;max-width:none}
+ body[data-view=map] .search input{height:27px;padding:5px;font-size:13px}
+ body[data-view=map] .public-scroll .places{height:auto}
+ body[data-view=map] .building .place{padding:10px;font-size:13px}
+ body[data-view=map] .unit-list a{height:35px;padding:10px;font-size:12px;line-height:14px;border-bottom:1px solid #eee}
+ body[data-view=map] .map-wrap{height:calc(100% - 270px)}
+ body[data-view=map] .leaflet-popup-content{width:320px!important;padding:15px 10px}
+ body[data-view=map] .popup-title{font-size:12px}
+ body[data-view=map] .popup-detail{margin-top:4px}
+ body[data-view=unit] main{padding-top:calc(var(--site-header-height,92px) + 24px)}
+ body[data-view=unit] .unit-top,body[data-view=unit] .unit-content{width:calc(100% - 20px)}
+ body[data-view=unit] .unit-top{position:relative;display:block;padding:0 0 15px}
+ body[data-view=unit] .unit-top h1{font-size:16px;line-height:24px;padding-top:50px}
+ body[data-view=unit] .unit-top #unit-back{position:absolute;top:3px;right:4px}
+ body[data-view=unit] .unit-facts{display:block}
+ body[data-view=unit] .unit-facts>div{font-size:16px;line-height:27.2px}
+ body[data-view=unit] .price-table{font-size:15px}
+ body[data-view=unit] .notice-downloads{margin:20px 0}
+}
+
+body[data-view=unit] .price-table .group-cell{background:#fafafa;font-weight:600}body[data-view=unit] .price-table .group-sep td,body[data-view=unit] .price-table .group-sep th{border-top:3px solid #999}
+body[data-view=unit] .unit-top,body[data-view=unit] .unit-content{width:calc(100% - 20px);max-width:1180px}
+
+.same-latlng .fa{color:#3182f6}
+
+/* Keep controls and detail content inside the available viewport. */
+body[data-view=map] .filter-row select{flex:1 1 0;width:0;min-width:0;max-width:100%}
+body[data-view=map] .unit-list a{height:auto;min-height:44px;overflow-wrap:anywhere}
+body[data-view=unit] #unit-prices{max-width:100%;overflow-x:auto;overscroll-behavior-x:contain}
+body[data-view=unit] .unit-top h1{min-width:0;overflow-wrap:anywhere}
+body[data-view=unit] .unit-top #unit-back{flex-shrink:0}
+@media(max-width:767px){
+ body[data-view=map] #detail:not([hidden]){position:fixed;inset:0;display:flex;flex-direction:column;height:100%;height:100dvh;overflow:hidden}
+ body[data-view=map] .detail-heading{position:relative;top:auto;left:auto;flex:none;padding:12px 12px 10px 44px;background:#fff}
+ body[data-view=map] .detail-heading .badges{flex-wrap:wrap}
+ body[data-view=map] .detail-heading h1{line-height:1.5;overflow-wrap:anywhere}
+ body[data-view=map] .public-map-back{left:4px;top:12px;width:36px;height:44px;line-height:40px;text-align:center}
+ body[data-view=map] .map-layout{position:relative;bottom:auto;left:auto;display:grid;grid-template-rows:minmax(0,48%) minmax(0,1fr);grid-template-columns:minmax(0,1fr);flex:1;min-height:0;height:auto;width:100%}
+ body[data-view=map] .sidebar{display:flex;flex-direction:column;order:0;min-height:0;height:auto;max-height:none;padding:0}
+ body[data-view=map] #filters{height:auto;padding:8px 12px;flex:none}
+ body[data-view=map] .filter-row{margin-bottom:5px;gap:6px}
+ body[data-view=map] .filter-row select{height:34px;font-size:12px;padding:6px 8px}
+ body[data-view=map] .search input{height:34px;font-size:16px;padding:6px 8px}
+ body[data-view=map] .public-scroll{height:auto;min-height:0;flex:1;padding:4px 8px;overflow-y:auto}
+ body[data-view=map] .public-scroll .list-meta{margin:0 0 5px}
+ body[data-view=map] .map-wrap{order:1;min-height:0;height:100%}
+ body[data-view=map] .leaflet-popup-content{width:min(320px,calc(100vw - 48px))!important}
+ body[data-view=unit] .unit-top,body[data-view=unit] .unit-content{width:calc(100% - 32px)}
+ body[data-view=unit] .unit-top{display:flex;gap:12px;align-items:flex-start;padding:0 0 16px}
+ body[data-view=unit] .unit-top h1{padding-top:0;font-size:20px;line-height:1.5}
+ body[data-view=unit] .unit-top #unit-back{position:static;min-width:44px;min-height:44px;display:grid;place-items:center}
+ body[data-view=unit] .unit-facts{margin:20px 0}
+ body[data-view=unit] .unit-facts>div{font-size:14px;line-height:1.7;padding:4px 0}
+ body[data-view=unit] .price-table{min-width:560px;font-size:13px;table-layout:auto}
+ body[data-view=unit] .price-table tbody td{font-size:13px;letter-spacing:0}
+ body[data-view=unit] .notice-downloads a{max-width:100%;padding:8px 12px;font-size:14px;line-height:1.6}
+ #unit-type-cards ul{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+ #unit-type-cards li{float:none;width:auto;margin:0}
+ #unit-type-cards a{margin:0;padding:12px 6px;font-size:13px}
+ #unit-type-cards span{white-space:normal;overflow-wrap:anywhere;padding:0 4px}
+ body[data-view=unit] .gallery{display:flex;flex-direction:column;height:auto;margin:20px auto}
+ body[data-view=unit] .gallery-tabs{width:100%;height:auto;max-height:120px;border-right:0;border-bottom:1px solid #eee;flex:none}
+ body[data-view=unit] .gallery-tabs button{min-height:40px;font-size:13px}
+ body[data-view=unit] .gallery-view{flex:none;height:280px}
+}
+@media(max-width:767px){
+ body[data-view=unit] .unit-top{display:grid;grid-template-columns:minmax(0,1fr) 44px;gap:8px 12px}
+ body[data-view=unit] .unit-top h1{grid-column:1;grid-row:1;margin:0;word-break:keep-all}
+ body[data-view=unit] .unit-top #unit-back{grid-column:2;grid-row:1}
+ body[data-view=unit] .unit-top .recruitment-heading{grid-column:1/-1;margin:0}
+}
+
+body[data-view=map] .single-unit .place::after{display:none}

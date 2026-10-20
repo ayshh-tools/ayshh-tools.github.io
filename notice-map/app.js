@@ -75,7 +75,8 @@ function renderPriceTable(rows,spans){
    return `<td${group?' class="group-cell"':''}${rowSpan>1?` rowspan="${rowSpan}"`:''}${colSpan>1?` colspan="${colSpan}"`:''}>${loan}${esc(cell)}</td>`;
   }).join('');return `<tr${row.length===4?' class="group-sep"':''}>${cells}</tr>`;
  }).join('');
- return `<table class="price-table"><thead><tr>${header}</tr></thead><tbody>${body}</tbody></table>`;
+ const columns=Math.max(...rows.map(row=>row.length),rows[0].reduce((sum,_,index)=>sum+(spans?.[0]?.[index]?.col||((grouped&&index===1)?2:1)),0));
+ return `<div class="price-table-scroll" tabindex="0" role="region" aria-label="보증금과 임대료 표"><table class="price-table" style="--price-columns:${columns}"><thead><tr>${header}</tr></thead><tbody>${body}</tbody></table></div>`;
 }
 function dict(u){return Object.fromEntries(u.facts);}
 function navigate(url){history.pushState(null,'',url);route();window.scrollTo(0,0);closeMenu();NoticeView.focusCurrent();}

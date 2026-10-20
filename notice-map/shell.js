@@ -144,7 +144,7 @@
     const kindName={bullet:'만기일시',annuity:'원리금균등',principal:'원금균등'}[kind];
     const {interest,first,last}=result;
     let firstLabel,lastLabel,schedule;
-    if(kind==='bullet'){firstLabel='매월 상환금액';lastLabel='마지막달 상환금액';schedule=`매월 <strong>${koreanAmount(Math.floor(first))}</strong>, 마지막달 <strong>${koreanAmount(Math.floor(last))}</strong>을 상환해야 합니다.`;}
+    if(kind==='bullet'){firstLabel='매월 이자';lastLabel='만기 상환 원금';schedule=`매월 이자 <strong>${koreanAmount(Math.floor(first))}</strong>를 내고, 만기에 원금 <strong>${koreanAmount(Math.floor(last))}</strong>을 상환합니다.`;}
     else if(kind==='principal'){firstLabel='1회차 상환금액';lastLabel='마지막달 상환금액';schedule=`첫달(1회차) <strong>${koreanAmount(Math.floor(first))}</strong>, 마지막달 <strong>${koreanAmount(Math.floor(last))}</strong>을 상환해야 합니다.`;}
     else{firstLabel='매월 상환금액';schedule=`매월 <strong>${koreanAmount(Math.floor(first))}</strong>을 상환해야 합니다.`;}
     byId('loan-summary').innerHTML=`${koreanAmount(principal)}을 ${months}개월 동안 ${value('loan-rate')}% ${kindName} 상환으로 대출 받았을 때`;

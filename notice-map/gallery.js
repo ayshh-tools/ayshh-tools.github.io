@@ -6,6 +6,18 @@ function selectPhotoButton(button, selected) {
  button.setAttribute('aria-pressed',String(selected));
 }
 
+function revealPhotoTab(container, button) {
+ if(!button || !container.clientHeight || !container.clientWidth)return;
+ const bounds=container.getBoundingClientRect(), tab=button.getBoundingClientRect();
+ const top=bounds.top+container.clientTop, left=bounds.left+container.clientLeft;
+ const bottom=top+container.clientHeight, right=left+container.clientWidth;
+ // Scroll only the tab list; selecting a photo must not move the document.
+ if(tab.top<top)container.scrollTop+=tab.top-top;
+ else if(tab.bottom>bottom)container.scrollTop+=Math.min(tab.bottom-bottom,tab.top-top);
+ if(tab.left<left)container.scrollLeft+=tab.left-left;
+ else if(tab.right>right)container.scrollLeft+=Math.min(tab.right-right,tab.left-left);
+}
+
 function renderGallery(images) {
  galleryImages = images;
  photoIndex = 0;
@@ -20,7 +32,7 @@ function renderGallery(images) {
  if (images.length) showPhoto(0);
 }
 
-function showPhoto(i){if(!galleryImages.length)return;photoIndex=(i+galleryImages.length)%galleryImages.length;const image=galleryImages[photoIndex];$('gallery-image').src=image.src;$('gallery-image').alt=image.alt;$('gallery-count').textContent=`${photoIndex+1} / ${galleryImages.length}`;Array.from($('gallery-tabs').children).forEach((button,index)=>selectPhotoButton(button,index===photoIndex));}
+function showPhoto(i){if(!galleryImages.length)return;photoIndex=(i+galleryImages.length)%galleryImages.length;const image=galleryImages[photoIndex];$('gallery-image').src=image.src;$('gallery-image').alt=image.alt;$('gallery-count').textContent=`${photoIndex+1} / ${galleryImages.length}`;const tabs=$('gallery-tabs');Array.from(tabs.children).forEach((button,index)=>selectPhotoButton(button,index===photoIndex));revealPhotoTab(tabs,tabs.children[photoIndex]);}
 
 let lightboxIndex=0,photoScale=1,photoX=0,photoY=0,photoDrag=null,photoFocus=null;
 const photoPointers=new Map();

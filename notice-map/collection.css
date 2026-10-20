@@ -51,7 +51,10 @@
  .collection-house-summary{margin-bottom:12px}
 }
 
-.collection-content{margin-top:16px}
+/* Keep navigation and closing controls visible while the list scrolls. */
+#collection-modal[open]{display:flex;flex-direction:column;overflow:hidden}
+#collection-modal>.collection-heading,#collection-modal>.collection-tabs,#collection-modal>.collection-storage,#collection-modal>.collection-hint{flex-shrink:0}
+.collection-content{margin-top:16px;min-height:0;overflow:auto;overscroll-behavior:contain;scrollbar-gutter:stable;padding:3px}
 #collection-modal>.collection-hint:empty{display:none}
 
 body:has(#collection-modal[open]){overflow:hidden}

@@ -125,7 +125,7 @@
  },true);
  $('region').addEventListener('change',event=>{
   event.stopImmediatePropagation();
-  const region=$('region').value,values=region?[...new Set(current.places.filter(place=>place.region===region).map(place=>place.district))].sort():[];
+  const region=$('region').value,values=[...new Set(current.places.filter(place=>!region||place.region===region).map(place=>place.district))].sort();
   $('district').replaceChildren(new Option('자치구 전체',''),...values.map(value=>new Option(value,value)));
   filter();savePublicFilter();
  },true);
@@ -146,16 +146,16 @@
   '26083101':{text:'알림신청기간 종료'}
  };
  const alarm=document.createElement('div');alarm.id='public-alarm';alarm.hidden=true;
- const overlay=document.createElement('div');overlay.id='public-alarm-overlay';overlay.hidden=true;
- overlay.innerHTML='<section id="public-alarm-modal" role="dialog" aria-modal="true" aria-labelledby="public-alarm-title"><div class="modal-header"><h3 id="public-alarm-title"></h3><button type="button" class="close-btn" aria-label="알림 안내 닫기">✕</button></div><p class="desc">접수가 시작되면 카카오톡으로 바로 알려드려요</p><div class="quota-box"><span id="public-alarm-quota"></span><span class="quota-num" id="public-alarm-remaining"></span></div><div class="phone-box"><span class="label">수신번호</span><span class="num">로그인 후 확인</span></div><p class="alarm-note">신청 시 해당 공고 접수 시작일에 알림이 1회 발송되며, 광고성 정보는 포함되지 않습니다.</p><button type="button" class="alarm-submit" disabled title="로그인 및 알림 신청 기능은 구현 범위에서 제외되어 있습니다.">무료알림 신청하기</button></section>';
+ const overlay=document.createElement('dialog');overlay.id='public-alarm-overlay';overlay.setAttribute('aria-labelledby','public-alarm-title');
+ overlay.innerHTML='<section id="public-alarm-modal"><div class="modal-header"><h3 id="public-alarm-title"></h3><button type="button" class="close-btn" aria-label="알림 안내 닫기">✕</button></div><p class="desc">접수가 시작되면 카카오톡으로 바로 알려드려요</p><div class="quota-box"><span id="public-alarm-quota"></span><span class="quota-num" id="public-alarm-remaining"></span></div><div class="phone-box"><span class="label">수신번호</span><span class="num">로그인 후 확인</span></div><p class="alarm-note">신청 시 해당 공고 접수 시작일에 알림이 1회 발송되며, 광고성 정보는 포함되지 않습니다.</p><button type="button" class="alarm-submit" disabled title="로그인 및 알림 신청 기능은 구현 범위에서 제외되어 있습니다.">무료알림 신청하기</button></section>';
  document.body.append(alarm,overlay);
- const closeAlarm=()=>{overlay.hidden=true;alarm.querySelector('button')?.focus();};
+ const closeAlarm=()=>{if(overlay.open)overlay.close();};
+ overlay.addEventListener('close',()=>{const opener=alarm.querySelector('button');if(opener?.isConnected&&opener.getClientRects().length)opener.focus();});
  overlay.querySelector('.close-btn').addEventListener('click',closeAlarm);
  overlay.addEventListener('click',event=>{if(event.target===overlay)closeAlarm();});
- document.addEventListener('keydown',event=>{if(event.key==='Escape'&&!overlay.hidden)closeAlarm();});
  const baseRoute=route;
  route=function(){
-  overlay.hidden=true;if($('unit-type-cards'))$('unit-type-cards').hidden=true;$('unit-detail').classList.remove('has-type-cards');$('gallery').classList.remove('legacy-gallery');$('legacy-photo-track')?.remove();$('legacy-photo-dots')?.remove();baseRoute();
+  closeAlarm();if($('unit-type-cards'))$('unit-type-cards').hidden=true;$('unit-detail').classList.remove('has-type-cards');$('gallery').classList.remove('legacy-gallery');$('legacy-photo-track')?.remove();$('legacy-photo-dots')?.remove();baseRoute();
   if(document.body.dataset.view==='map'){
    let saved;try{saved=JSON.parse(sessionStorage.getItem(filterKey(current.id))||'null');}catch{}
    if(saved){
@@ -172,7 +172,7 @@
   control.textContent=state.text;control.className=state.active?'alarm-active':'alarm-ended';alarm.append(control);
   if(state.active){control.type='button';control.addEventListener('click',()=>{
    $('public-alarm-title').textContent=current.title;$('public-alarm-quota').textContent=state.quota;$('public-alarm-remaining').textContent=state.remaining;
-   overlay.hidden=false;overlay.querySelector('.close-btn').focus();
+   overlay.showModal();overlay.querySelector('.close-btn').focus();
   });}
  };
  // app.js renders its initial route before this extension is evaluated.

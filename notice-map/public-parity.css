@@ -55,11 +55,15 @@ body[data-view=unit] .legacy-gallery{display:block;position:relative;width:400px
 #public-alarm{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);z-index:9999}
 #public-alarm>button,#public-alarm>.alarm-ended{display:flex;flex-direction:column;align-items:center;gap:2px;padding:15px 40px 15px 35px;border-radius:4px;border:0;font-size:15px;font-weight:700;background:#ffe235;color:#191919;box-shadow:none;position:relative;overflow:hidden;line-height:25px}
 #public-alarm>.alarm-ended{background:#e0e0e0;color:#888;box-shadow:none;line-height:18px;cursor:default}
-#public-alarm-overlay{position:fixed;inset:0;background:#00000073;z-index:10000;display:flex;align-items:flex-end;justify-content:center}
-#public-alarm-modal{width:100%;max-width:420px;background:#fff;border-radius:4px 4px 0 0;padding:28px 24px 32px;letter-spacing:normal}
+#public-alarm-overlay{position:fixed;inset:0;width:100%;height:100%;max-width:none;max-height:none;margin:0;padding:0;border:0;background:transparent;align-items:flex-end;justify-content:center;overflow-y:auto;overscroll-behavior:contain}
+:root:is([data-theme=dark],[data-contrast=high]) body #public-alarm-overlay{background:transparent;box-shadow:none}
+#public-alarm-overlay[open]{display:flex}
+#public-alarm-overlay::backdrop{background:#00000073}
+body:has(#public-alarm-overlay[open]){overflow:hidden}
+#public-alarm-modal{width:100%;max-width:420px;max-height:100%;overflow-y:auto;background:#fff;border-radius:4px 4px 0 0;padding:28px 24px 32px;letter-spacing:normal}
 #public-alarm-modal .modal-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:4px}
 #public-alarm-modal h3{font-size:18px;font-weight:700;margin:0}
-#public-alarm-modal .close-btn{background:none;border:0;font-size:20px;color:#999;cursor:pointer;padding:4px}
+#public-alarm-modal .close-btn{background:none;border:0;font-size:20px;color:#999;cursor:pointer;padding:4px;min-width:44px;min-height:44px;flex:none}
 #public-alarm-modal .desc{font-size:13px;color:#888;margin:0 0 12px}
 #public-alarm-modal .quota-box{display:flex;justify-content:space-between;align-items:center;padding:10px 14px;background:#fffbea;border:1px solid #ffe58f;border-radius:4px;margin-bottom:16px;font-size:13px}
 #public-alarm-modal .quota-num{font-weight:700;color:#b8860b}

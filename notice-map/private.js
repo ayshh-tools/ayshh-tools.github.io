@@ -20,7 +20,7 @@ function showPrivateMap(){
 }
 function filterPrivate(){
  const category=$('private-category').value,district=$('private-district').value,query=$('private-search').value.trim().toLowerCase();
- const visible=privateSource.filter(p=>(!category||p.category===category)&&(!district||p.district===district)&&p.name.toLowerCase().includes(query));
+ const visible=privateSource.filter(p=>(!category||p.category===category)&&(!district||p.district===district)&&`${p.name} ${p.address}`.toLowerCase().includes(query));
  const visibleIds=new Set(visible.map(item=>item.id));
  if(!visibleIds.has(privateSelectedId)){
   privateSelectedId=null;

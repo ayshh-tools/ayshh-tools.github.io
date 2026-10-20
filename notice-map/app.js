@@ -7,7 +7,7 @@ const esc = value => String(value).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&
 let map, markers, current;
 initializeGallery();
 const detailURL=(n,unit)=>`/${n.id}${unit?`/${unit.id}`:''}`;
-$('cards').innerHTML=notices.map(n=>`<article class="card"><a class="thumbnail" href="${detailURL(n)}" aria-label="${esc(n.title)} 공고지도"><img src="./assets/${n.id}.jpg" alt="${esc(n.title)} 영상 썸네일" width="320" height="180"></a><div class="card-body"><a class="card-title" href="${detailURL(n)}">${esc(n.title)}</a><div class="tags"><span>${n.agency}</span> <span>${n.type}</span> <span>${n.date} 공고문</span></div></div><div class="card-buttons"><a href="${esc(n.videoURL||`https://youtu.be/${n.video}`)}" target="_blank" rel="noopener noreferrer"><svg class="card-button-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="2" y="5" width="20" height="14" rx="4" fill="#f00"/><path d="m10 9 6 3-6 3Z" fill="#fff"/></svg>유튜브</a><a href="${detailURL(n)}" aria-label="${esc(n.title)} 지도 열기"><svg class="card-button-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m3 6 6-3 6 3 6-3v15l-6 3-6-3-6 3V6Z"/><path d="M9 3v15M15 6v15"/></svg>공고지도</a></div></article>`).join('');
+$('cards').innerHTML=notices.map(renderNoticeCard).join('');
 function options(id,values,label){const previous=$(id).value;$(id).replaceChildren(new Option(label,''),...[...new Set(values)].map(v=>new Option(v,v)));if(values.includes(previous))$(id).value=previous;}
 function showNotice(n){
  NoticeView.show('map');

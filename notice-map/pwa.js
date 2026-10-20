@@ -1,5 +1,11 @@
 (() => {
   'use strict';
+  const offline = document.getElementById('offline-status');
+  const syncConnection = () => { if (offline) offline.hidden = navigator.onLine !== false; };
+  window.addEventListener('online', syncConnection);
+  window.addEventListener('offline', syncConnection);
+  window.addEventListener('pageshow', syncConnection);
+  syncConnection();
   const card = document.querySelector('.pwa-card');
   if (!card) return;
   const button = document.getElementById('pwa-install');

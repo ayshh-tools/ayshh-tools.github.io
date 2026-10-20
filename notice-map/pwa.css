@@ -7,3 +7,5 @@
 
 .pwa-card[hidden]{display:none!important}
 @media(display-mode:standalone){.pwa-card{display:none!important}}
+
+.offline-status{margin:12px auto;padding:10px 16px;max-width:1200px;background:var(--surface,#f6f8fa);color:var(--ink,#1f2328);font-size:13px;line-height:1.6;overflow-wrap:anywhere}.offline-status[hidden]{display:none}

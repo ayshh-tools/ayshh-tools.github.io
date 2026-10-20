@@ -75,3 +75,6 @@ body:has(#collection-modal[open]){overflow:hidden}
 .collection-table th,.collection-table td{min-width:0;max-width:none}
 .collection-table th:first-child{position:static;left:auto;min-width:0}
 @media(max-width:600px){.collection-table{width:calc(96px + var(--compare-columns,1)*208px)}.collection-table .comparison-label-column{width:96px}.collection-table th:first-child{min-width:0}}
+
+/* A single selected home fits without an unnecessary horizontal scroll. */
+@media(max-width:600px){.collection-table.collection-table-single{width:100%}.collection-table-single .comparison-label-column{width:84px}}

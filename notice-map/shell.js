@@ -40,7 +40,7 @@
   </form></section>
   <section id="loan" hidden><form id="loan-form" class="shell-loan"><label><span class="shell-field-name">대출금액</span><input id="loan-amount" type="number" max="1000000" min="1" placeholder="대출금액" aria-label="대출금액"><span class="shell-suffix">만원</span></label><label><span class="shell-field-name">대출기간</span><input id="loan-months" type="number" min="1" max="600" placeholder="대출기간" aria-label="대출기간"><span class="shell-suffix">개월</span></label><label><span class="shell-field-name">대출금리</span><input id="loan-rate" type="number" min="0" step="0.001" max="100" placeholder="대출금리" aria-label="대출금리"><span class="shell-suffix">%</span></label>
   <div class="shell-repayment"><input type="radio" id="loan-bullet" name="loan-kind" value="bullet" checked><label for="loan-bullet">만기일시</label><input type="radio" id="loan-annuity" name="loan-kind" value="annuity"><label for="loan-annuity">원리금균등</label><input type="radio" id="loan-principal-kind" name="loan-kind" value="principal"><label for="loan-principal-kind">원금균등</label></div>
-  <div class="shell-loan-result"><div id="loan-empty"><span class="shell-exclamation">!</span> 정확한 이자 계산을 위해 아래 항목을 모두 입력해 주세요.</div><div id="loan-complete" hidden><p id="loan-summary"></p><p id="loan-schedule"></p><dl id="loan-values"></dl></div></div></form></section>
+  <div class="shell-loan-result"><div id="loan-empty">대출금액·기간·금리를 입력해 주세요.</div><div id="loan-complete" hidden><p id="loan-summary"></p><p id="loan-schedule"></p><dl id="loan-values"></dl></div></div></form></section>
   </div>`;
   byId('loan-amount').removeAttribute('min');
   ['conversion-rate','conversion-ratio','conversion-amount'].forEach(id=>byId(id).step='any');
@@ -144,7 +144,7 @@
     const kindName={bullet:'만기일시',annuity:'원리금균등',principal:'원금균등'}[kind];
     const {interest,first,last}=result;
     let firstLabel,lastLabel,schedule;
-    if(kind==='bullet'){firstLabel='매월 이자';lastLabel='만기 상환 원금';schedule=`매월 이자 <strong>${koreanAmount(Math.floor(first))}</strong>를 내고, 만기에 원금 <strong>${koreanAmount(Math.floor(last))}</strong>을 상환합니다.`;}
+    if(kind==='bullet'){firstLabel='매월 이자';lastLabel='만기 상환 원금';schedule=`매월 이자 <strong>${koreanAmount(Math.floor(first))}</strong>을 내고, 만기에 원금 <strong>${koreanAmount(Math.floor(last))}</strong>을 상환합니다.`;}
     else if(kind==='principal'){firstLabel='1회차 상환금액';lastLabel='마지막달 상환금액';schedule=`첫달(1회차) <strong>${koreanAmount(Math.floor(first))}</strong>, 마지막달 <strong>${koreanAmount(Math.floor(last))}</strong>을 상환해야 합니다.`;}
     else{firstLabel='매월 상환금액';schedule=`매월 <strong>${koreanAmount(Math.floor(first))}</strong>을 상환해야 합니다.`;}
     byId('loan-summary').innerHTML=`${koreanAmount(principal)}을 ${months}개월 동안 ${value('loan-rate')}% ${kindName} 상환으로 대출 받았을 때`;

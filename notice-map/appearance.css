@@ -106,6 +106,12 @@
 :root:is([data-theme=dark],[data-contrast=high]) :is(.shell-cal-tabs button,.shell-directions button,#calculator .shell-repayment label){background:var(--appearance-input);color:var(--appearance-muted);border-color:var(--appearance-control)}
 :root:is([data-theme=dark],[data-contrast=high]) :is(.shell-cal-tabs button.active,.shell-directions button.on,#calculator .shell-repayment input:checked+label){background:var(--appearance-selected);color:var(--appearance-accent);border-color:var(--appearance-accent)}
 :root:is([data-theme=dark],[data-contrast=high]) :is(.shell-explanation,.shell-conversion-result,.shell-loan-result,#public-alarm-modal .phone-box){background:var(--appearance-surface);color:var(--appearance-muted)}
+:root #calculator :is(#loan-empty,#loan-summary,#loan-schedule){color:var(--appearance-text);line-height:1.6;word-break:keep-all;overflow-wrap:anywhere}
+:root #calculator #loan-values{background:var(--appearance-card);color:var(--appearance-text)}
+:root #calculator #loan-values>div{border-color:var(--appearance-line)}
+:root #calculator #loan-values .payment{background:var(--appearance-selected)}
+:root #calculator :is(#loan-schedule strong,#loan-values>div:nth-child(4) dd){color:var(--appearance-accent)}
+:root :is(#gallery-prev,#gallery-next){background:var(--appearance-overlay);color:var(--appearance-text);border:1px solid var(--appearance-control)}
 :root:is([data-theme=dark],[data-contrast=high]) :is(#calculator .shell-field-name,#calculator .shell-suffix,#public-alarm-modal .desc,#public-alarm-modal .alarm-note,#public-alarm-modal .phone-box .label){color:var(--appearance-muted)}
 :root:is([data-theme=dark],[data-contrast=high]) :is(#calculator .has-value .shell-field-name,#calculator .shell-field-name.rate-name,.shell-careful strong){color:var(--appearance-accent)}
 :root:is([data-theme=dark],[data-contrast=high]) .shell-conversion-result .red{background:var(--appearance-danger-bg);color:var(--appearance-danger)}

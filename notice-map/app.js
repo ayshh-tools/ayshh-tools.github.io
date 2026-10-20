@@ -31,7 +31,7 @@ function filter(){
  const visible=current.places.filter(p=>(!$('region').value||p.region===$('region').value)&&(!$('district').value||p.district===$('district').value)).map(p=>({...p,shown:p.units.filter(u=>matchesUnit(u)&&(!query||`${p.address} ${u.label}`.toLowerCase().includes(query)))})).filter(p=>p.shown.length);
  $('count').textContent=`${visible.reduce((n,p)=>n+p.shown.length,0)} / ${current.places.reduce((n,p)=>n+p.units.length,0)}개`;
  markers.clearLayers();$('places').replaceChildren();
- if(!visible.length){$('places').innerHTML='<p class="empty">검색 결과가 없습니다.</p>';return;}
+ if(!visible.length){$('places').innerHTML='<p class="empty">검색 조건을 바꿔보세요.</p>';return;}
  const controls=[];
  for(const p of visible){
   const marker=L.marker(p.coord,{title:p.address,icon:markerIcon(p.marker)}).addTo(markers);

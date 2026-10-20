@@ -36,7 +36,7 @@ function filterPrivate(){
  $('private-result-count').textContent=visible.length===privateSource.length?`전체 ${visible.length}개`:`검색 결과 ${visible.length}개`;
  privateItems.clear();
  $('private-rows').replaceChildren($('private-result-count'),...visible.map(createPrivateItem));
- if(!visible.length){const empty=document.createElement('p');empty.className='empty';empty.textContent='검색 결과가 없습니다. 검색어나 유형·지역 조건을 바꿔보세요.';$('private-rows').append(empty);}
+ if(!visible.length){const empty=document.createElement('p');empty.className='empty';empty.textContent='검색어나 유형·지역 조건을 바꿔보세요.';$('private-rows').append(empty);}
 }
 function createPrivateItem(item){
  const link=document.createElement('a');

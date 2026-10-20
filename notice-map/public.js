@@ -147,7 +147,7 @@
  };
  const alarm=document.createElement('div');alarm.id='public-alarm';alarm.hidden=true;
  const overlay=document.createElement('dialog');overlay.id='public-alarm-overlay';overlay.setAttribute('aria-labelledby','public-alarm-title');
- overlay.innerHTML='<section id="public-alarm-modal"><div class="modal-header"><h3 id="public-alarm-title"></h3><button type="button" class="close-btn" aria-label="알림 안내 닫기">✕</button></div><p class="desc">접수가 시작되면 카카오톡으로 바로 알려드려요</p><div class="quota-box"><span id="public-alarm-quota"></span><span class="quota-num" id="public-alarm-remaining"></span></div><div class="phone-box"><span class="label">수신번호</span><span class="num">로그인 후 확인</span></div><p class="alarm-note">신청 시 해당 공고 접수 시작일에 알림이 1회 발송되며, 광고성 정보는 포함되지 않습니다.</p><button type="button" class="alarm-submit" disabled title="로그인 및 알림 신청 기능은 구현 범위에서 제외되어 있습니다.">무료알림 신청하기</button></section>';
+ overlay.innerHTML='<section id="public-alarm-modal"><div class="modal-header"><h3 id="public-alarm-title"></h3><button type="button" class="close-btn" aria-label="알림 안내 닫기">✕</button></div><p class="desc">접수 알림 준비 중입니다.</p><div class="quota-box"><span id="public-alarm-quota"></span><span class="quota-num" id="public-alarm-remaining"></span></div><div class="phone-box"><span class="label">수신번호</span><span class="num">로그인 후 확인</span></div><button type="button" class="alarm-submit" disabled>알림 신청</button></section>';
  document.body.append(alarm,overlay);
  const closeAlarm=()=>{if(overlay.open)overlay.close();};
  overlay.addEventListener('close',()=>{const opener=alarm.querySelector('button');if(opener?.isConnected&&opener.getClientRects().length)opener.focus();});

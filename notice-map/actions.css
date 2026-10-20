@@ -24,6 +24,8 @@
 @media(prefers-reduced-motion:reduce){:root body[data-view] .gallery-tabs button{transition:none}}
 
 .action-brand-icon,.card-button-icon{display:block;width:20px;height:20px;flex:0 0 20px}
+/* Keep Korean words intact when the desktop advertising card narrows. */
+.advertising .ad-head{word-break:keep-all;overflow-wrap:anywhere;line-height:1.5}
 @media(max-width:600px){
  :root body[data-view] .detail-bottom{gap:8px;padding:16px}
  :root body[data-view] .detail-bottom a{flex:1 1 140px;padding:10px 12px}

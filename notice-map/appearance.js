@@ -46,6 +46,12 @@
       toggle.setAttribute('aria-label', '메뉴 열기');
       document.body.classList.remove('menu-open');
     };
+    // Full-page links can return through the back/forward cache with the drawer open.
+    menu.addEventListener('click', event => {
+      const link = event.target.closest('a[href]');
+      if (link && !event.defaultPrevented) close();
+    });
+    window.addEventListener('pageshow', close);
     document.addEventListener('click', event => {
       if (!menu.hidden && !menu.contains(event.target) && !toggle.contains(event.target)) {
         close();

@@ -46,7 +46,7 @@
 #menu .menu-inner{position:static;transform:none;width:auto;padding:0;max-height:none;overflow:visible;text-align:left}
 #menu a{display:block;width:100%;margin:0;padding:11px 12px;border-radius:4px;text-align:left;font-size:15px;line-height:1.5;color:var(--appearance-text)}
 #menu a::after{display:none}
-#menu a:hover{background:var(--appearance-hover)}
+@media(hover:hover) and (pointer:fine){#menu a:hover{background:var(--appearance-hover)}}
 #menu a.on{background:var(--appearance-selected);color:var(--appearance-accent)}
 #menu a.on{box-shadow:none;font-weight:700}
 #menu a>span:not(.shell-in-badge){font-size:12px;font-weight:400;color:var(--appearance-muted)}
@@ -127,7 +127,7 @@
 @media(prefers-reduced-motion:reduce){.appearance-switch::before{transition:none}}
 /* Tool integrations inherit the same surface roles, including injected controls. */
 #menu .collection-menu button{display:flex;justify-content:space-between;gap:8px;padding:9px 10px;margin:3px 0;background:var(--appearance-surface);color:var(--appearance-text);border:1px solid var(--appearance-line)}
-#menu .collection-menu button:hover{background:var(--appearance-hover)}
+@media(hover:hover) and (pointer:fine){#menu .collection-menu button:hover{background:var(--appearance-hover)}}
 :root:is([data-theme=dark],[data-contrast=high]) .header-actions>button.account-button:not(#menu-toggle){background:var(--appearance-selected);color:var(--appearance-accent);border:1px solid var(--appearance-line)}
 :root:is([data-theme=dark],[data-contrast=high]) .header-actions>button.collection-shortcut{background:var(--appearance-selected);color:var(--appearance-accent);border:1px solid var(--appearance-line)}
 :root:is([data-theme=dark],[data-contrast=high]) .header-actions>button#calculator-open{background:var(--appearance-input);color:var(--appearance-accent);border-color:var(--appearance-control)}

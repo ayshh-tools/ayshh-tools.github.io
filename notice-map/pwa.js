@@ -6,10 +6,17 @@
   const status = document.getElementById('pwa-status');
   let pending;
   const report = message => { status.textContent = message; status.hidden = false; };
-  const standalone = matchMedia('(display-mode: standalone)').matches || navigator.standalone;
+  const displayMode = matchMedia('(display-mode: standalone)');
+  const syncInstallCard = () => {
+    card.hidden = displayMode.matches || navigator.standalone === true;
+    if (card.hidden) button.hidden = true;
+  };
+  syncInstallCard();
+  displayMode.addEventListener('change', syncInstallCard);
+  window.addEventListener('pageshow', syncInstallCard);
   window.addEventListener('beforeinstallprompt', event => {
     event.preventDefault(); pending = event;
-    if (!standalone) button.hidden = false;
+    if (!card.hidden) button.hidden = false;
   });
   button.addEventListener('click', async () => {
     if (!pending) return;
@@ -17,5 +24,5 @@
     try { await prompt.prompt(); await prompt.userChoice; }
     catch { report('브라우저 메뉴에서 홈 화면에 추가를 선택하세요.'); }
   });
-  window.addEventListener('appinstalled', () => { pending = null; button.hidden = true; report('설치가 완료됐어요.'); });
+  window.addEventListener('appinstalled', () => { pending = null; button.hidden = true; card.hidden = true; });
 })();

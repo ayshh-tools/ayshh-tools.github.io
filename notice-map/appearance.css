@@ -48,7 +48,7 @@
 #menu a::after{display:none}
 #menu a:hover{background:var(--appearance-hover)}
 #menu a.on{background:var(--appearance-selected);color:var(--appearance-accent)}
-#menu a.on{box-shadow:inset 3px 0 var(--appearance-accent);font-weight:600}
+#menu a.on{box-shadow:none;font-weight:700}
 #menu a>span:not(.shell-in-badge){font-size:12px;font-weight:400;color:var(--appearance-muted)}
 #menu a .shell-in-badge{top:12px;right:12px}
 .appearance-settings{border-top:1px solid var(--appearance-line);margin-top:10px;padding:16px 12px 4px}
@@ -87,7 +87,7 @@
 :root .private-popup small{color:var(--appearance-muted)}
 :root:is([data-theme=dark],[data-contrast=high]) :is(.building .place.active,.private-item.active,.gallery-tabs button.active,#unit-type-cards li.now a){background:var(--appearance-selected);color:var(--appearance-accent);border-color:var(--appearance-accent)}
 /* Selected items keep a visible shape cue as well as a color change. */
-.gallery-tabs button.active{box-shadow:inset 3px 0 var(--appearance-accent)}
+.gallery-tabs button.active{box-shadow:none}
 #unit-type-cards li.now a{box-shadow:inset 0 0 0 1px var(--appearance-accent)}
 :root:is([data-theme=dark],[data-contrast=high]) .unit-list a{color:var(--appearance-text);border-color:var(--appearance-line)}
 :root:is([data-theme=dark],[data-contrast=high]) .unit-list a:hover{background:var(--appearance-hover)}

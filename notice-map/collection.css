@@ -58,3 +58,9 @@ body:has(#collection-modal[open]){overflow:hidden}
 #collection-modal{overscroll-behavior:contain}
 #collection-modal .collection-heading>[data-close]{flex-shrink:0;width:44px;height:44px}
 #collection-modal .collection-storage{padding:10px 12px;border:1px solid var(--appearance-line);border-radius:4px;background:var(--appearance-surface)}
+
+/* Stretch each row evenly and anchor actions below variable-length content. */
+.collection-list>li{display:flex;flex-direction:column;align-items:stretch}
+.collection-list>li>.collection-house-photo{flex-shrink:0}
+.collection-list>li>.collection-actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:auto}
+.collection-list>li>.collection-actions button{min-width:0}

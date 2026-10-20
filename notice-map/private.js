@@ -65,7 +65,7 @@ function selectPrivateItem(item){
 }
 function showPrivateDetail(item){
  NoticeView.show('private-unit');
- $('unit-notice-title').textContent=item.name;$('unit-notice-title').parentElement.append($('unit-back'));$('unit-back').href='/plan';$('unit-back').setAttribute('aria-label','목록');$('unit-back').innerHTML='<span class="fa">&#xf03a;</span>';
+ $('unit-notice-title').textContent=item.name;$('unit-notice-title').parentElement.append($('unit-back'));$('unit-back').href='/plan';$('unit-back').setAttribute('aria-label','목록');$('unit-back').innerHTML='<span class="fa" aria-hidden="true">&#xf03a;</span> 목록';
  $('unit-select').hidden=true;$('unit-facts').hidden=true;$('unit-prices').hidden=true;document.querySelector('.source-note').hidden=true;
  $('private-facts').hidden=false;$('private-facts').innerHTML=item.html;
  renderGallery(item.images);

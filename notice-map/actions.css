@@ -1,0 +1,31 @@
+/* Action controls share a visible boundary and a comfortable hit area. */
+:root body[data-view] :is(.detail-bottom a,.collection-empty-links a,.collection-actions button,.collection-tools button,.collection-table button,.collection-card-meta .collection-remove,.pwa-card button){
+ display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;max-width:100%;padding:10px 16px;border:1px solid var(--appearance-control);border-radius:4px;background:var(--appearance-input);color:var(--appearance-text);font:inherit;font-size:14px;font-weight:600;line-height:1.5;text-align:center;text-decoration:none;white-space:normal;overflow-wrap:anywhere;cursor:pointer;box-shadow:none;
+}
+:root body[data-view] .detail-bottom{display:flex;justify-content:center;flex-wrap:wrap;gap:12px}
+:root body[data-view] .collection-empty-links{gap:12px}
+:root body[data-view] .pwa-card button{background:var(--appearance-primary);color:var(--appearance-on-primary);border-color:var(--appearance-primary)}
+:root body[data-view] .collection-actions button[aria-pressed=true]{background:var(--appearance-input);color:var(--appearance-accent);border-color:var(--appearance-accent)}
+:root body[data-view] .unit-top #unit-back{display:inline-flex;align-items:center;justify-content:center;gap:8px;flex-shrink:0;width:auto;min-width:44px;min-height:44px;height:auto;margin:0;padding:10px 12px;border:1px solid var(--appearance-control);border-radius:4px;background:var(--appearance-input);color:var(--appearance-accent);font-size:14px;line-height:1.5;float:none}
+:root body[data-view] .unit-top{display:flex;align-items:center;gap:16px}
+:root body[data-view] .unit-top h1{min-width:0;float:none}
+:root body[data-view] :is(.detail-bottom a,.collection-empty-links a,.collection-actions button,.collection-tools button,.collection-table button,.collection-card-meta .collection-remove,.pwa-card button,.unit-top #unit-back):hover{background:var(--appearance-hover);color:var(--appearance-accent);border-color:var(--appearance-accent)}
+:root body[data-view] :is(.detail-bottom a,.collection-empty-links a,.collection-actions button,.collection-tools button,.collection-table button,.collection-remove,.pwa-card button,.unit-top #unit-back):focus-visible{outline:3px solid var(--appearance-accent);outline-offset:3px}
+@media(max-width:600px){:root body[data-view] .detail-bottom{padding-inline:16px}:root body[data-view] .unit-top{gap:12px;align-items:flex-start}:root body[data-view] .unit-top #unit-back{padding-inline:10px}:root body[data-view] .collection-card-meta{flex-wrap:wrap}}
+@media(max-width:600px){:root body[data-view] .unit-top{flex-wrap:wrap}:root body[data-view] .unit-top h1{flex:1 0 100%;margin:0}:root body[data-view] .unit-top #unit-back{order:2}:root body[data-view] .unit-top>.collection-detail-actions{margin:0}}
+
+:root body[data-view] :is(.collection-table button[data-remove],.collection-card-meta .collection-remove){width:44px;height:44px;min-width:44px;padding:0;font-size:24px;line-height:1}
+
+/* Photo choices use the same feedback in public and private details. */
+:root body[data-view] .gallery-tabs button{transition:background-color .15s,color .15s}
+:root body[data-view] .gallery-tabs button.active{background:var(--appearance-selected);color:var(--appearance-accent);box-shadow:none}
+@media(hover:hover){:root body[data-view] .gallery-tabs button:hover{background:var(--appearance-hover);color:var(--appearance-accent)}}
+:root body[data-view] .gallery-tabs button:focus-visible{outline:2px solid var(--appearance-accent);outline-offset:-3px}
+@media(prefers-reduced-motion:reduce){:root body[data-view] .gallery-tabs button{transition:none}}
+
+.action-brand-icon,.card-button-icon{display:block;width:20px;height:20px;flex:0 0 20px}
+@media(max-width:600px){
+ :root body[data-view] .detail-bottom{gap:8px;padding:16px}
+ :root body[data-view] .detail-bottom a{flex:1 1 140px;padding:10px 12px}
+ .collection-empty{padding:28px 4px}.collection-empty strong{font-size:18px;line-height:1.5}.collection-empty p{margin:10px 0;line-height:1.6}.collection-empty-links{margin-top:16px}
+}

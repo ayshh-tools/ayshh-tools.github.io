@@ -29,7 +29,7 @@ if(typeof document!=='undefined'){
    const state=recruitmentStatus(n.recruitment);counts[state]++;
    const card=$('cards').children[index];card.hidden=selected!=='all'&&selected!==state;
    let info=card.querySelector('.recruitment-info');if(!info){info=document.createElement('div');info.className='recruitment-info';card.querySelector('.card-body').append(info);}
-   info.innerHTML=badge(n)+`<small>${esc(n.recruitment?.sourceText||'접수기간 정보 없음')}</small>`;
+   info.innerHTML=badge(n);
   });
   toolbar.querySelectorAll('button').forEach(b=>{b.setAttribute('aria-pressed',String(selected===b.dataset.status));b.textContent=`${labels[b.dataset.status]} ${counts[b.dataset.status]}`;});
   const count=counts[selected];

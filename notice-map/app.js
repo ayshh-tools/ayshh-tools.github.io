@@ -48,15 +48,19 @@ function filter(){
 }
 function renderUnit(n,building,unit){
  NoticeView.show('unit');
- $('unit-back').setAttribute('aria-label','지도리스트보기');$('private-facts').hidden=true;$('private-related').hidden=true;$('unit-select').hidden=building.units.length===1||unit.selectLabel===null;$('unit-facts').hidden=false;$('unit-prices').hidden=false;document.querySelector('.source-note').hidden=false;$('unit-back').innerHTML='<span class="fa">&#xf279;</span>';
+ $('unit-back').setAttribute('aria-label','지도리스트보기');$('private-facts').hidden=true;$('private-related').hidden=true;$('unit-select').hidden=building.units.length===1||unit.selectLabel===null;$('unit-facts').hidden=false;$('unit-prices').hidden=false;document.querySelector('.source-note').hidden=false;$('unit-back').innerHTML='<span class="fa" aria-hidden="true">&#xf279;</span> 지도 목록';
  $('unit-notice-title').textContent=n.title;$('unit-back').href=detailURL(n);
  $('unit-select').replaceChildren(...building.units.map(u=>new Option(u.selectLabel||`${dict(u).공급형||''} ${u.label}`.trim(),u.id)));
  $('unit-select').value=unit.id;
  $('unit-select').onchange=()=>navigate(detailURL(n,building.units.find(u=>u.id===$('unit-select').value)));
- $('unit-facts').innerHTML=unit.facts.map(([key,value])=>`<div${['주소','지하철역','접수기간','비고'].includes(key)?' class="wide"':''}><dt>${esc(key)} :</dt><dd>${esc(value)}</dd></div>`).join('');
+ $('unit-facts').innerHTML=unit.facts.filter(([key])=>!['접수기간','접수 기간'].includes(key)).map(([key,value])=>`<div${['주소','지하철역','접수기간','비고'].includes(key)?' class="wide"':''}><dt>${esc(key)} :</dt><dd>${esc(value)}</dd></div>`).join('');
  $('unit-prices').innerHTML=unit.tables.map((rows,index)=>renderPriceTable(rows,unit.tableSpans?.[index])).join('');
  renderGallery(unit.images);
- const files=noticeSupplements[n.id]?.files||[];$('notice-downloads').hidden=!files.length;$('notice-downloads').innerHTML='<ul>'+files.map(file=>`<li><a href="${esc(file.href)}" download="${esc(file.download)}">${esc(file.text)}</a></li>`).join('')+'</ul>';
+ const files=noticeSupplements[n.id]?.files||[];$('notice-downloads').hidden=!files.length;$('notice-downloads').innerHTML='<ul>'+files.map(file=>{
+  const name=(file.download||file.text.replace(/^#/, '')).normalize('NFC');
+  const format=name.match(/\.([a-z0-9]+)$/i)?.[1]?.toUpperCase()||'FILE';
+  return `<li><a href="${esc(file.href)}" download="${esc(file.download)}" title="${esc(name)}"><span class="download-format" aria-hidden="true">${esc(format)}</span><span class="download-name">${esc(name)}</span><span class="download-action">다운로드</span></a></li>`;
+ }).join('')+'</ul>';
  $('unit-original').href=unit.source;document.title=`${building.district} ${unit.label} > ${n.title} | 아영이네 행복주택`;
  NoticeView.showUnitLocation(building.coord,markerIcon());
 }

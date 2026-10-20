@@ -32,15 +32,18 @@
 
 /* Keep per-card removal above the photo and separate from housing details. */
 .collection-list>li:has(.collection-remove){position:relative;padding-top:62px}
-:root body[data-view] .collection-card-meta .collection-remove{position:absolute;top:8px;right:8px;margin:0;border:0;background:transparent;color:var(--appearance-muted);text-decoration:none}
-:root body[data-view] .collection-card-meta .collection-remove:hover{border:0;background:var(--appearance-hover);color:var(--appearance-accent)}
 
 /* Comparison removal belongs above each title, without a button frame. */
 .collection-table thead th:not(:first-child){position:relative;padding-top:60px}
-:root body[data-view] .collection-table button[data-remove]{position:absolute;top:8px;right:8px;margin:0;border:0;background:transparent;color:var(--appearance-muted)}
-:root body[data-view] .collection-table button[data-remove]:hover{background:var(--appearance-hover);color:var(--appearance-accent)}
+:root body[data-view] :is(.collection-table button[data-remove],.collection-card-meta .collection-remove){position:absolute;top:8px;right:8px;margin:0;border:0;background:transparent;color:var(--appearance-muted);text-decoration:none}
+:root body[data-view] :is(.collection-table button[data-remove],.collection-card-meta .collection-remove):hover{border:0;background:var(--appearance-hover);color:var(--appearance-accent)}
 /* Result counts are supporting text, rather than form controls. */
 :root body[data-view] .list-meta{display:flex;align-items:center;justify-content:space-between;min-height:0;height:auto;margin:12px 16px 8px;padding:0;border:0;border-radius:0;background:transparent;box-shadow:none;color:var(--appearance-muted);font-size:13px;font-weight:400;line-height:1.5}
 :root body[data-view] #private-result-count{margin:0;padding:12px 16px 8px}
 :root body[data-view] .list-meta span:first-child{color:inherit;font-weight:400}
 @media(max-width:600px){:root body[data-view] #private-result-count{padding:10px 12px 6px}:root body[data-view] .public-scroll .list-meta{margin:10px 12px 8px}}
+
+/* Align status badges at the foot of equally stretched catalog bodies. */
+#catalog .card-body{flex:1}
+#catalog .card-body .recruitment-info{margin-top:auto}
+.collection-table thead th:first-child{text-align:center;vertical-align:middle}

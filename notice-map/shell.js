@@ -41,7 +41,7 @@
   <section id="loan" hidden><form id="loan-form" class="shell-loan"><label><span class="shell-field-name">대출금액</span><input id="loan-amount" type="number" max="1000000" min="1" placeholder="대출금액" aria-label="대출금액"><span class="shell-suffix">만원</span></label><label><span class="shell-field-name">대출기간</span><input id="loan-months" type="number" min="1" max="600" placeholder="대출기간" aria-label="대출기간"><span class="shell-suffix">개월</span></label><label><span class="shell-field-name">대출금리</span><input id="loan-rate" type="number" min="0" step="0.001" max="100" placeholder="대출금리" aria-label="대출금리"><span class="shell-suffix">%</span></label>
   <div class="shell-repayment"><input type="radio" id="loan-bullet" name="loan-kind" value="bullet" checked><label for="loan-bullet">만기일시</label><input type="radio" id="loan-annuity" name="loan-kind" value="annuity"><label for="loan-annuity">원리금균등</label><input type="radio" id="loan-principal-kind" name="loan-kind" value="principal"><label for="loan-principal-kind">원금균등</label></div>
   <div class="shell-loan-result"><div id="loan-empty"><span class="shell-exclamation">!</span> 정확한 이자 계산을 위해 아래 항목을 모두 입력해 주세요.</div><div id="loan-complete" hidden><p id="loan-summary"></p><p id="loan-schedule"></p><dl id="loan-values"></dl></div></div></form></section>
-  <div class="shell-careful"><span class="shell-exclamation">!</span> 본 계산기는 <strong>참고용</strong>입니다.</div></div>`;
+  </div>`;
   byId('loan-amount').removeAttribute('min');
   ['conversion-rate','conversion-ratio','conversion-amount'].forEach(id=>byId(id).step='any');
   // The source applies its existing min/max attributes on keyup, including

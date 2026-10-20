@@ -2,6 +2,8 @@
 (() => {
   'use strict';
   const key = 'ayshh-notice-map-collection-v1';
+  const RECENT_LIMIT = 50;
+  const COMPARE_LIMIT = 4;
   const records = new Map();
   for (const n of notices) {
     for (const p of n.places) for (const u of p.units) records.set(`/${n.id}/${u.id}`, {title:`${p.address} · ${u.label}`, kind:'공공임대 세대', type:n.type, agency:n.agency, notice:n.title, address:p.address, area:u.area ? `${u.area}㎡` : '', recruitment:recruitmentForUnit(n.recruitment,u), image:u.images?.[0], facts:u.facts, tables:u.tables});
@@ -10,7 +12,7 @@
   const clean = value => Array.isArray(value) ? [...new Set(value.filter(p=>typeof p==='string' && records.has(p)))] : [];
   let state = {saved:[], recent:[], compare:[]}, persistent=true;
   function read() {
-    try { const data=JSON.parse(localStorage.getItem(key)||'{}')||{};state={saved:clean(data.saved),recent:clean(data.recent).slice(0,50),compare:clean(data.compare).slice(0,4)}; } catch { persistent=false; }
+    try { const data=JSON.parse(localStorage.getItem(key)||'{}')||{};state={saved:clean(data.saved),recent:clean(data.recent).slice(0,RECENT_LIMIT),compare:clean(data.compare).slice(0,COMPARE_LIMIT)}; } catch { persistent=false; }
   }
   read();
   const dialog=document.createElement('dialog');dialog.id='collection-modal';dialog.setAttribute('aria-labelledby','collection-title');
@@ -30,7 +32,7 @@
   function track(){
     if(dialog.open){navigating=true;dialog.close();}
     const path=currentPath();detailActions.remove();
-    if(path){state.recent=[path,...state.recent.filter(p=>p!==path)].slice(0,50);const target=document.querySelector('.unit-content');target?.prepend(detailActions);detailActions.innerHTML=actions(path);persist();}
+    if(path){state.recent=[path,...state.recent.filter(p=>p!==path)].slice(0,RECENT_LIMIT);const target=document.querySelector('.unit-content');target?.prepend(detailActions);detailActions.innerHTML=actions(path);persist();}
     sync();
   }
   const baseRoute=route;route=function(){baseRoute();track();};
@@ -65,7 +67,7 @@
     const save=b.dataset.save,compare=b.dataset.compare,path=save||compare;
     if(path&&records.has(path)){
       const list=state[save?'saved':'compare'],index=list.indexOf(path);
-      if(index>=0)list.splice(index,1);else{if(compare&&list.length===4){announce('최대 4개까지 비교할 수 있어요. 비교하기에서 항목을 빼주세요.');return;}list.unshift(path);}
+      if(index>=0)list.splice(index,1);else{if(compare&&list.length===COMPARE_LIMIT){announce(`최대 ${COMPARE_LIMIT}개까지 비교할 수 있어요. 비교하기에서 항목을 빼주세요.`);return;}list.unshift(path);}
       persist();
       if(dialog.open)(dialog.querySelector(`[data-${save?'save':'compare'}="${path}"]`)||dialog.querySelector(`[data-tab="${active}"]`))?.focus();
     }

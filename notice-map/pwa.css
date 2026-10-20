@@ -3,3 +3,4 @@
 .pwa-card:has(#pwa-install:not([hidden])) .pwa-help{display:none}
 
 .pwa-desktop-copy h2{font-size:20px;line-height:1.4;margin:0 0 8px}.pwa-qr{display:flex;flex-direction:column;align-items:center;flex-shrink:0;gap:6px;color:inherit;text-decoration:none;font-size:12px}.pwa-qr img{display:block;background:#fff;border-radius:4px}.pwa-desktop-copy~.pwa-help{display:none}@media(max-width:767px){.pwa-qr,.pwa-desktop-copy{display:none}.pwa-desktop-copy~.pwa-help{display:block}}
+@media(min-width:768px){.pwa-card #pwa-install,.pwa-card .pwa-help,.pwa-card #pwa-status{display:none!important}}

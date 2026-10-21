@@ -1,7 +1,15 @@
 (() => {
   'use strict';
   const offline = document.getElementById('offline-status');
-  const syncConnection = () => { if (offline) offline.hidden = navigator.onLine !== false; };
+  const cachedShell = document.documentElement.hasAttribute('data-cached-shell');
+  const syncConnection = () => {
+    if (!offline) return;
+    const disconnected = navigator.onLine === false;
+    offline.hidden = !disconnected && !cachedShell;
+    offline.textContent = cachedShell
+      ? `${disconnected ? '오프라인 · ' : ''}저장된 공고 정보입니다. 최신 정보는 연결 후 새로고침해 확인하세요.`
+      : '오프라인 · 사진·지도는 연결이 필요합니다.';
+  };
   window.addEventListener('online', syncConnection);
   window.addEventListener('offline', syncConnection);
   window.addEventListener('pageshow', syncConnection);

@@ -19,7 +19,7 @@ const CollectionStore = (() => {
     state={saved:clean(data.saved),recent:clean(data.recent).slice(0,recentLimit),compare:clean(data.compare).slice(0,compareLimit)};
    }catch{persistent=false;}
   }
-  function persist(){try{storage.setItem(key,JSON.stringify(state));return true;}catch{persistent=false;return false;}}
+  function persist(){try{storage.setItem(key,JSON.stringify(state));persistent=true;return true;}catch{persistent=false;return false;}}
   function toggle(kind,path){
    if(!['saved','compare'].includes(kind)||!records.has(path))return false;
    const list=state[kind],index=list.indexOf(path);

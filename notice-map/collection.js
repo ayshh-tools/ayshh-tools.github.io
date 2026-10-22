@@ -27,6 +27,7 @@
   }
   NoticeLifecycle.afterRender(track);
   function sync(){
+    if(store.takeCompareConflict())announce(`다른 창의 비교 항목이 ${CollectionStore.compareLimit}개여서 새 선택을 추가하지 못했습니다. 비교 항목을 먼저 빼주세요.`);
     storageNote.hidden=store.persistent;
     const focused=dialog.contains(document.activeElement)?document.activeElement:null;
     const focusKey=focused&&['tab','save','compare','remove'].find(key=>focused.dataset[key]);
@@ -48,6 +49,7 @@
     const save=b.dataset.save,compare=b.dataset.compare,path=save||compare;
     if(path&&records.has(path)){
       if(!store.toggle(save?'saved':'compare',path)){
+        sync();
         announce(`최대 ${CollectionStore.compareLimit}개까지 비교할 수 있어요. 비교하기에서 항목을 빼주세요.`);return;
       }
       persist();

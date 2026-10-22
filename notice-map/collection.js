@@ -18,7 +18,7 @@
   const menu=document.createElement('section');menu.className='collection-menu';menu.innerHTML='<h2>나의 주택 보관함</h2>'+[['saved','♡ 관심 주택'],['recent','◷ 최근 본 주택'],['compare','⇄ 주택 비교']].map(([tab,label])=>`<button type="button" data-open="${tab}" aria-haspopup="dialog">${label}<span data-count="${tab}"></span></button>`).join('');
   $('menu').querySelector('.menu-inner').after(menu);
   const detailActions=document.createElement('div');detailActions.className='collection-detail-actions';
-  function currentPath(){const path=location.pathname.replace(/\/$/,'');return records.has(path)?path:null;}
+  function currentPath(){const path=NoticeLocation.parse(location).recordPath;return records.has(path)?path:null;}
   function track(){
     if(dialog.open){navigating=true;dialog.close();}
     const path=currentPath();detailActions.remove();

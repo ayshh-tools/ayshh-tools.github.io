@@ -38,8 +38,8 @@ if(typeof document!=='undefined'){
   for(const id of ['detail-title','unit-notice-title']){
    const heading=$(id);let status=heading.parentElement.querySelector('.recruitment-heading');
    if(!status){status=document.createElement('span');status.className='recruitment-heading';heading.after(status);}
-   const match=location.pathname.match(/^\/(\d{8})(?:\/(\d+))?/);const n=notices.find(n=>n.id===match?.[1]);
-   const unit=id==='unit-notice-title'&&match?.[2]?n?.places.flatMap(place=>place.units).find(unit=>unit.id===match[2]):undefined;
+   const route=NoticeLocation.parse(location),n=notices.find(n=>n.id===route.noticeId);
+   const unit=id==='unit-notice-title'&&route.unitId?n?.places.flatMap(place=>place.units).find(unit=>unit.id===route.unitId):undefined;
    status.innerHTML=n?badge(n,unit):'';
   }
  }

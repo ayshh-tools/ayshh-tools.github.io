@@ -53,11 +53,21 @@ const PublicNotice = (() => {
   ['search','region','district','area','deposit'].forEach(id=>state[id]=$(id).value);
   try{sessionStorage.setItem(filterKey(current.id),JSON.stringify(state));}catch{}
  }
- function sortPublicOptions(id){
-  const select=$(id),selected=select.value,placeholder=select.options[0].textContent;
-  const values=Array.from(select.options).slice(1).map(option=>option.value).sort();
-  select.replaceChildren(new Option(placeholder,''),...values.map(value=>new Option(value,value)));select.value=selected;
+ function applyFilterState(n,state={}){
+  const values=id=>typeof state[id]==='string'?state[id]:'';
+  options('region',n.places.map(p=>p.region).sort(),'시도 전체');$('region').value=values('region');
+  options('district',n.places.filter(p=>!$('region').value||p.region===$('region').value).map(p=>p.district).sort(),'자치구 전체');
+  ['search','district','area','deposit'].forEach(id=>$(id).value=values(id));
  }
+ function restoreFilters(n,changed){
+  let saved;try{saved=JSON.parse(sessionStorage.getItem(filterKey(n.id))||'null');}catch{}
+  if(saved&&typeof saved==='object'&&!Array.isArray(saved)){
+   applyFilterState(n,saved);return Number.isFinite(saved.scroll)?Math.max(0,saved.scroll):0;
+  }
+  if(changed)applyFilterState(n);
+  return changed?0:publicScroll.scrollTop;
+ }
+ function restoreScroll(scroll){publicScroll.scrollTop=scroll;}
  function decorateUnit(n,building,unit){
   // Preserve secondary cell text and line breaks without accepting source HTML.
   // Keep the existing loan link: it is rendered independently from source parts.
@@ -120,7 +130,10 @@ const PublicNotice = (() => {
  });
  const applySearch=()=>{filter();savePublicFilter();};
  $('search').addEventListener('compositionend',applySearch);
- $('filters').addEventListener('reset',()=>{if(current)setTimeout(()=>{options('district',current.places.map(p=>p.district),'자치구 전체');filter();savePublicFilter();},0);});
+ $('filters').addEventListener('reset',event=>{
+  event.preventDefault();if(!current)return;
+  applyFilterState(current);filter();publicScroll.scrollTop=0;savePublicFilter();
+ });
  ['district','area','deposit'].forEach(id=>$(id).addEventListener('change',filter));
  ['region','district','area','deposit'].forEach(id=>$(id).addEventListener('change',savePublicFilter));
  publicScroll.addEventListener('scroll',savePublicFilter,{passive:true});
@@ -146,14 +159,6 @@ const PublicNotice = (() => {
   closeAlarm();if($('unit-type-cards'))$('unit-type-cards').hidden=true;$('unit-detail').classList.remove('has-type-cards');$('gallery').classList.remove('legacy-gallery');$('legacy-photo-track')?.remove();$('legacy-photo-dots')?.remove();
  });
  NoticeLifecycle.afterRender(()=>{
-  if(document.body.dataset.view==='map'){
-   let saved;try{saved=JSON.parse(sessionStorage.getItem(filterKey(current.id))||'null');}catch{}
-   if(saved){
-    $('region').value=saved.region||'';options('district',current.places.filter(p=>!$('region').value||p.region===$('region').value).map(p=>p.district),'자치구 전체');
-    ['search','district','area','deposit'].forEach(id=>$(id).value=saved[id]||'');filter();publicScroll.scrollTop=saved.scroll||0;
-   }
-   sortPublicOptions('region');sortPublicOptions('district');
-  }
   const supplement=noticeSupplements[current?.id];
   const state=document.body.dataset.view==='map'?(supplement&&Object.prototype.hasOwnProperty.call(supplement,'alarm')?supplement.alarm:alertStates[current?.id]):null;
   alarm.hidden=!state;alarm.replaceChildren();
@@ -165,5 +170,5 @@ const PublicNotice = (() => {
    overlay.showModal();overlay.querySelector('.close-btn').focus();
   });}
  });
- return {decorateUnit};
+ return {decorateUnit,restoreFilters,restoreScroll};
 })();

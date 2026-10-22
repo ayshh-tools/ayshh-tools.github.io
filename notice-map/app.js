@@ -14,9 +14,9 @@ function showNotice(n){
  const changed=current?.id!==n.id;current=n;
  $('detail-title').textContent=n.title;$('agency').textContent=n.agency;$('category').textContent=n.type;document.title=`${n.title} | 아영이네 행복주택`;
  $('source').href=`https://ayounghome.com/${n.id}`;$('video').href=n.videoURL||`https://youtu.be/${n.video}`;
- if(changed){$('filters').reset();options('region',n.places.map(p=>p.region),'시도 전체');options('district',n.places.map(p=>p.district),'자치구 전체');}
+ const scroll=PublicNotice.restoreFilters(n,changed);
  if(!map){map=createMap('map');markers=L.layerGroup().addTo(map);}
- map.invalidateSize();filter();
+ map.invalidateSize();filter();PublicNotice.restoreScroll(scroll);
 }
 function renderUnit(n,building,unit){
  NoticeView.show('unit');
@@ -56,15 +56,14 @@ function navigate(url){history.pushState(null,'',url);route();window.scrollTo(0,
 function route(){NoticeLifecycle.render(renderRoute);}
 function renderRoute(){
  if(!$('photo-lightbox').hidden)closePhoto();
- const params=new URLSearchParams(location.search), path=location.pathname;
- if(/^\/plan\/?$/.test(path)||path==='/bbs/board.php'&&params.get('bo_table')==='plan'){showPrivateMap();return;}
- const privateMatch=path.match(/^\/plan\/([0-9]+)\/?$/);if(privateMatch){const item=privateSource.find(p=>p.id===privateMatch[1]);if(item){showPrivateDetail(item);return;}}
- const match=path.match(/^\/([0-9]{8})(?:\/([0-9]+))?\/?$/);
- const n=notices.find(n=>n.id===(match?.[1]||params.get('notice')));
- if(n){const id=match?.[2]||params.get('unit');const b=n.places.find(b=>b.units.some(u=>u.id===id));if(b)renderUnit(n,b,b.units.find(u=>u.id===id));else showNotice(n);}
- else{const list=path==='/bbs/group.php'&&params.get('gr_id')==='aymap';NoticeView.show(list?'catalog':'landing');document.title=(list?'공고지도':'공고지도 유형선택')+' | 아영이네 행복주택';}
+ const route=NoticeLocation.parse(location);
+ if(route.privateList){showPrivateMap();return;}
+ if(route.privateId){const item=privateSource.find(p=>p.id===route.privateId);if(item){showPrivateDetail(item);return;}}
+ const n=notices.find(n=>n.id===route.noticeId);
+ if(n){const id=route.unitId;const b=n.places.find(b=>b.units.some(u=>u.id===id));if(b)renderUnit(n,b,b.units.find(u=>u.id===id));else showNotice(n);}
+ else{const list=route.catalog;NoticeView.show(list?'catalog':'landing');document.title=(list?'공고지도':'공고지도 유형선택')+' | 아영이네 행복주택';}
 }
-document.addEventListener('click',event=>{const a=event.target.closest('a');if(!a||event.defaultPrevented||event.button!==0||event.ctrlKey||event.metaKey||event.shiftKey||event.altKey||a.target)return;const url=new URL(a.href);if(url.origin===location.origin&&(url.pathname==='/content/map'||url.pathname==='/plan'||/^\/plan\/[0-9]+\/?$/.test(url.pathname)||url.pathname==='/bbs/board.php'&&url.searchParams.get('bo_table')==='plan'||url.pathname==='/bbs/group.php'&&url.searchParams.get('gr_id')==='aymap'||/^\/[0-9]{8}(?:\/[0-9]+)?\/?$/.test(url.pathname))){event.preventDefault();navigate(url.href);}});
+document.addEventListener('click',event=>{const a=event.target.closest('a');if(!a||event.defaultPrevented||event.button!==0||event.ctrlKey||event.metaKey||event.shiftKey||event.altKey||a.target)return;const url=new URL(a.href);if(NoticeLocation.isInternal(url,location.origin)){event.preventDefault();navigate(url.href);}});
 window.addEventListener('popstate',()=>{route();closeMenu();NoticeView.focusCurrent();});
 function closeMenu(){$('menu-toggle').setAttribute('aria-label','메뉴 열기');$('menu').hidden=true;$('menu-toggle').setAttribute('aria-expanded','false');document.body.classList.remove('menu-open');}
 $('menu-toggle').addEventListener('click',()=>{const open=$('menu').hidden;$('menu').hidden=!open;$('menu-toggle').setAttribute('aria-expanded',String(open));document.body.classList.toggle('menu-open',open);});

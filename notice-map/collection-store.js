@@ -11,25 +11,52 @@ const CollectionStore = (() => {
   return records;
  }
  function create(records,storage) {
-  let state={saved:[],recent:[],compare:[]},persistent=true;
+  let state={saved:[],recent:[],compare:[]},persistent=true,pending=[];
   const clean=value=>Array.isArray(value)?[...new Set(value.filter(path=>typeof path==='string'&&records.has(path)))]:[];
+  function apply(change){
+   const {kind,path,selected}=change;
+   if(kind==='recent'){
+    state.recent=[path,...state.recent.filter(value=>value!==path)].slice(0,recentLimit);
+   }else if(kind==='clearRecent')state.recent=[];
+   else if(kind==='removeRecent')state.recent=state.recent.filter(value=>value!==path);
+   else{
+    state[kind]=state[kind].filter(value=>value!==path);
+    if(selected)state[kind].unshift(path);
+    if(kind==='compare')state.compare=state.compare.slice(0,compareLimit);
+   }
+  }
   function read(){
    try{
     const data=JSON.parse(storage.getItem(key)||'{}')||{};
     state={saved:clean(data.saved),recent:clean(data.recent).slice(0,recentLimit),compare:clean(data.compare).slice(0,compareLimit)};
+    // Replaying explicit selections is idempotent; a storage event must not
+    // discard edits whose previous write failed or toggle them a second time.
+    pending.forEach(apply);
    }catch{persistent=false;}
   }
-  function persist(){try{storage.setItem(key,JSON.stringify(state));persistent=true;return true;}catch{persistent=false;return false;}}
+  function change(value){pending.push(value);apply(value);}
+  function persist(){
+   read();
+   try{storage.setItem(key,JSON.stringify(state));pending=[];persistent=true;return true;}
+   catch{persistent=false;return false;}
+  }
   function toggle(kind,path){
    if(!['saved','compare'].includes(kind)||!records.has(path))return false;
-   const list=state[kind],index=list.indexOf(path);
-   if(index>=0)list.splice(index,1);
-   else{if(kind==='compare'&&list.length>=compareLimit)return false;list.unshift(path);}
-   return true;
+   read();
+   const selected=!state[kind].includes(path);
+   if(selected&&kind==='compare'&&state.compare.length>=compareLimit)return false;
+   change({kind,path,selected});return true;
   }
-  function track(path){if(records.has(path))state.recent=[path,...state.recent.filter(value=>value!==path)].slice(0,recentLimit);}
-  function remove(kind,path){if(Object.hasOwn(state,kind))state[kind]=state[kind].filter(value=>value!==path);}
-  function clearRecent(){state.recent=[];}
+  function track(path){if(records.has(path)){read();change({kind:'recent',path});}}
+  function remove(kind,path){
+   if(!['saved','recent','compare'].includes(kind))return;
+   read();
+   // Removal is an explicit intent too, including for recent history.
+   if(kind==='recent'){
+    change({kind:'removeRecent',path});
+   }else change({kind,path,selected:false});
+  }
+  function clearRecent(){read();change({kind:'clearRecent'});}
   read();
   return {get state(){return state;},get persistent(){return persistent;},read,persist,toggle,track,remove,clearRecent};
  }

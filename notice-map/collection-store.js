@@ -47,11 +47,13 @@ const CollectionStore = (() => {
      compareConflict=true;
      pending=pending.filter(change=>change.kind!=='compare'||!rejected.has(change.path));
     }
-   }catch{persistent=false;}
+    return true;
+   }catch{persistent=false;return false;}
   }
   function change(value){pending.push(value);apply(value);}
   function persist(){
-   read();
+   // A failed read must not turn a stale in-memory snapshot into the saved one.
+   if(!read())return false;
    try{storage.setItem(key,JSON.stringify(state));pending=[];persistent=true;return true;}
    catch{persistent=false;return false;}
   }

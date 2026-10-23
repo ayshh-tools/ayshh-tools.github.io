@@ -30,11 +30,20 @@
     if(store.takeCompareConflict())announce(`다른 창의 비교 항목이 ${CollectionStore.compareLimit}개여서 새 선택을 추가하지 못했습니다. 비교 항목을 먼저 빼주세요.`);
     storageNote.hidden=store.persistent;
     const focused=dialog.contains(document.activeElement)?document.activeElement:null;
-    const focusKey=focused&&['tab','save','compare','remove'].find(key=>focused.dataset[key]);
+    const focusKey=focused&&['tab','save','compare','remove','clear'].find(key=>focused.hasAttribute(`data-${key}`));
+    const focusHref=focused?.getAttribute('href');
     const focusValue=focusKey?focused.dataset[focusKey]:null;
     document.querySelectorAll('[data-count]').forEach(el=>el.textContent=store.state[el.dataset.count].length);
     document.querySelectorAll('[data-save],[data-compare]').forEach(button=>{const save=button.hasAttribute('data-save'),selected=store.state[save?'saved':'compare'].includes(button.dataset[save?'save':'compare']);button.setAttribute('aria-pressed',String(selected));button.textContent=CollectionView.actionLabel(save?'saved':'compare',selected);});
-    if(dialog.open){render();if(focusKey)(Array.from(dialog.querySelectorAll(`[data-${focusKey}]`)).find(el=>el.dataset[focusKey]===focusValue)||dialog.querySelector(`[data-tab="${active}"]`))?.focus();}
+    if(dialog.open){
+      render();
+      if(focusKey||focusHref){
+        const replacement=focusKey
+          ?Array.from(dialog.querySelectorAll(`[data-${focusKey}]`)).find(el=>el.dataset[focusKey]===focusValue)
+          :Array.from(dialog.querySelectorAll('a[href]')).find(el=>el.getAttribute('href')===focusHref);
+        (replacement||dialog.querySelector(`[data-tab="${active}"]`))?.focus({preventScroll:true});
+      }
+    }
   }
   function render(){
     const view=CollectionView.render(active,store.state,records);

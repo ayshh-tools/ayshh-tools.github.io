@@ -1,5 +1,5 @@
 'use strict';
-// Pure calculator rules; form formatting and labels stay in shell.js.
+// Pure calculator rules and amount labels; form state stays in shell.js.
 const HousingCalculations = (() => {
  function loan({principal, months, annualRate, kind}) {
   if(![principal,months,annualRate].every(Number.isFinite)||principal<=0||months<=0||!Number.isInteger(months)||annualRate<0||annualRate>100)return null;
@@ -25,6 +25,15 @@ const HousingCalculations = (() => {
    rent:Math.max(0,rent+(direction==='up'?-change*rate/12:change*rate/12))
   };
  }
- return {loan,conversion};
+  function koreanDigits(n) {
+    if (!n) return '백만원';
+    const digit = ['', '일','이','삼','사','오','육','칠','팔','구'];
+    const group = ['', '십', '백', '천'];
+    return String(n).split('').map((d,i,a) => {
+      const p=a.length-i-1;
+      return (Number(d)?digit[Number(d)]+group[p%4]:'')+(p===8?'억':p===4 && a.slice(Math.max(0,a.length-8),a.length-4).some(value=>Number(value))?'만':'');
+    }).join('')+'원';
+  }
+ return {loan,conversion,koreanDigits};
 })();
 if(typeof module!=='undefined')module.exports=HousingCalculations;

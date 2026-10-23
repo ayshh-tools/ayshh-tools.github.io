@@ -65,15 +65,7 @@
     const eok = Math.floor(n / 1e8), man = Math.floor(n % 1e8 / 1e4), won = Math.floor(n % 1e4);
     return `${eok ? `${eok.toLocaleString('ko-KR')}억 ` : ''}${man ? `${man.toLocaleString('ko-KR')}만 ` : ''}${won ? `${won.toLocaleString('ko-KR')}원` : !eok && man ? '원' : ''}`.trim();
   }
-  function koreanDigits(n) {
-    if (!n) return '백만원';
-    const digit = ['', '일','이','삼','사','오','육','칠','팔','구'];
-    const group = ['', '십', '백', '천'];
-    return String(n).split('').map((d,i,a) => {
-      const p=a.length-i-1;
-      return (Number(d)?digit[Number(d)]+group[p%4]:'')+(p===8?'억':p===4 && a.length<9?'만':'');
-    }).join('')+'원';
-  }
+  const koreanDigits = HousingCalculations.koreanDigits;
   function updateNames(form) {
     form.querySelectorAll('input[type=number]').forEach(input => {
       input.parentElement.classList.toggle('has-value', input.value !== '');

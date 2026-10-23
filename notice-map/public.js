@@ -47,10 +47,12 @@ const PublicNotice = (() => {
  publicScroll.append(listMeta,$('places'));
  const mapBack=document.createElement('a');mapBack.className='public-map-back';mapBack.href='/bbs/group.php?gr_id=aymap';mapBack.textContent='<';mapBack.setAttribute('aria-label','공고 목록으로 돌아가기');document.querySelector('.detail-heading').prepend(mapBack);
  const filterKey=id=>`ayshh-notice-map-filter-${id}`;
+ const memoryFilters=new Map();
  function savePublicFilter(){
   if(document.body.dataset.view!=='map'||!current)return;
   const state={scroll:publicScroll.scrollTop};
   ['search','region','district','area','deposit'].forEach(id=>state[id]=$(id).value);
+  memoryFilters.set(current.id,state);
   try{sessionStorage.setItem(filterKey(current.id),JSON.stringify(state));}catch{}
  }
  function applyFilterState(n,state={}){
@@ -60,8 +62,10 @@ const PublicNotice = (() => {
   ['search','district','area','deposit'].forEach(id=>$(id).value=values(id));
  }
  function restoreFilters(n,changed){
-  let saved;try{saved=JSON.parse(sessionStorage.getItem(filterKey(n.id))||'null');}catch{}
+  let saved=memoryFilters.get(n.id);
+  if(!saved)try{saved=JSON.parse(sessionStorage.getItem(filterKey(n.id))||'null');}catch{}
   if(saved&&typeof saved==='object'&&!Array.isArray(saved)){
+   memoryFilters.set(n.id,saved);
    applyFilterState(n,saved);return Number.isFinite(saved.scroll)?Math.max(0,saved.scroll):0;
   }
   if(changed)applyFilterState(n);

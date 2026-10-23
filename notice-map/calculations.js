@@ -25,15 +25,27 @@ const HousingCalculations = (() => {
    rent:Math.max(0,rent+(direction==='up'?-change*rate/12:change*rate/12))
   };
  }
-  function koreanDigits(n) {
-    if (!n) return '백만원';
-    const digit = ['', '일','이','삼','사','오','육','칠','팔','구'];
-    const group = ['', '십', '백', '천'];
-    return String(n).split('').map((d,i,a) => {
-      const p=a.length-i-1;
-      return (Number(d)?digit[Number(d)]+group[p%4]:'')+(p===8?'억':p===4 && a.slice(Math.max(0,a.length-8),a.length-4).some(value=>Number(value))?'만':'');
-    }).join('')+'원';
+ function koreanDigits(n) {
+  if(!Number.isFinite(n)||n<0)return '';
+  // Remove only binary rounding noise at a whole-won boundary, then discard
+  // sub-won amounts like the calculator's numeric results do.
+  const amount=Number.isInteger(n)?n:Math.floor(n+Number.EPSILON*n);
+  if(!Number.isSafeInteger(amount))return '';
+  if(amount===0)return '영원';
+  const digit=['','일','이','삼','사','오','육','칠','팔','구'];
+  const small=['','십','백','천'],large=['','만','억','조'];
+  let result='',remaining=amount,index=0;
+  while(remaining){
+   const part=remaining%10000;
+   if(part){
+    const text=String(part);
+    const label=Array.from(text,(value,i)=>Number(value)?digit[Number(value)]+small[text.length-i-1]:'').join('');
+    result=label+large[index]+result;
+   }
+   remaining=Math.floor(remaining/10000);index++;
   }
+  return result+'원';
+ }
  return {loan,conversion,koreanDigits};
 })();
 if(typeof module!=='undefined')module.exports=HousingCalculations;

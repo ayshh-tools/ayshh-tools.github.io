@@ -62,6 +62,7 @@
   const number = n => Math.floor(n).toLocaleString('ko-KR');
   const value = id => Number(byId(id).value);
   function koreanAmount(n) {
+    if(n===0)return '0원';
     const eok = Math.floor(n / 1e8), man = Math.floor(n % 1e8 / 1e4), won = Math.floor(n % 1e4);
     return `${eok ? `${eok.toLocaleString('ko-KR')}억 ` : ''}${man ? `${man.toLocaleString('ko-KR')}만 ` : ''}${won ? `${won.toLocaleString('ko-KR')}원` : !eok && man ? '원' : ''}`.trim();
   }
@@ -81,7 +82,7 @@
     const deposit=value('base-deposit'), rent=value('base-rent'), rate=value('conversion-rate')/100;
     const mode=form.querySelector('[name=transfer-mode]:checked').value;
     const ratio=value('conversion-ratio')/100;
-    byId('conversion-korean').textContent=koreanDigits(value('conversion-amount')*1e6);
+    byId('conversion-korean').textContent=byId('conversion-amount').value===''?'백만원':koreanDigits(value('conversion-amount')*1e6);
     const required=['base-deposit','base-rent','conversion-rate',mode==='ratio'?'conversion-ratio':'conversion-amount'];
     const complete=required.every(id=>byId(id).value!=='');
     const valid=complete&&required.every(id=>byId(id).validity.valid);

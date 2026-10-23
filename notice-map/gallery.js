@@ -76,7 +76,7 @@ $('photo-lightbox').addEventListener('click',event=>{if(event.target===$('photo-
 document.addEventListener('keydown',event=>{if($('photo-lightbox').hidden)return;if(event.key==='Escape')closePhoto();if(event.key==='ArrowLeft')openPhoto(lightboxIndex-1);if(event.key==='ArrowRight')openPhoto(lightboxIndex+1);if(event.key==='Tab'){const controls=[$('photo-close'),$('photo-prev'),$('photo-next'),...$('photo-names').children];const next=(controls.indexOf(document.activeElement)+(event.shiftKey?-1:1)+controls.length)%controls.length;event.preventDefault();controls[next].focus();}});
 $('photo-lightbox').addEventListener('wheel',event=>{event.preventDefault();photoScale=Math.max(1,Math.min(5,photoScale+(event.deltaY>0?-.1:.1)));transformPhoto();},{passive:false});
 $('photo-image').addEventListener('dblclick',()=>{photoScale=photoScale===1?2:1;photoX=photoY=0;transformPhoto();});
-$('photo-image').addEventListener('pointerdown',event=>{event.preventDefault();photoPointers.set(event.pointerId,{x:event.clientX,y:event.clientY});$('photo-image').setPointerCapture(event.pointerId);photoDrag={x:event.clientX,y:event.clientY,px:photoX,py:photoY,pinch:photoPointers.size>1};});
+$('photo-image').addEventListener('pointerdown',event=>{event.preventDefault();if(photoPointers.size>=2)return;photoPointers.set(event.pointerId,{x:event.clientX,y:event.clientY});$('photo-image').setPointerCapture(event.pointerId);photoDrag={x:event.clientX,y:event.clientY,px:photoX,py:photoY,pinch:photoPointers.size>1};});
 $('photo-image').addEventListener('pointermove',event=>{
  if(!photoPointers.has(event.pointerId))return;
  const distance=()=>{const [a,b]=[...photoPointers.values()];return Math.hypot(a.x-b.x,a.y-b.y);};
@@ -98,5 +98,5 @@ function endPhotoPointer(event){
   photoDrag={x:point.x,y:point.y,px:photoX,py:photoY,pinch:true};
  }else if(!photoPointers.size)photoDrag=null;
 }
-$('photo-image').addEventListener('pointerup',endPhotoPointer);$('photo-image').addEventListener('pointercancel',resetPhotoGesture);
+$('photo-image').addEventListener('pointerup',endPhotoPointer);$('photo-image').addEventListener('pointercancel',event=>{if(photoPointers.has(event.pointerId))resetPhotoGesture();});
 }
